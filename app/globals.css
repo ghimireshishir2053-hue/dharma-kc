@@ -117,7 +117,10 @@ img{display:block;max-width:100%;}
 /* hero top strip wraps on mobile */
 @media (max-width: 768px){
   .hero-top-strip{flex-wrap:wrap;gap:8px;}
-  .r-grid-hero > .hero-right{order:-1;}
+  /* unwrap .hero-right so portrait and stats become siblings of the left column */
+  .r-grid-hero > .hero-right{display:contents;}
+  .hero-portrait{order:-1;}
+  .hero-stats{order:1;margin-top:0 !important;}
   .hero-inner{padding-top:40px !important;padding-bottom:24px !important;}
 }
 

@@ -154,6 +154,7 @@ export default function Hero() {
           {/* RIGHT */}
           <div className="hero-right">
             <div
+              className="hero-portrait"
               style={{
                 position: "relative", aspectRatio: "4 / 5", borderRadius: 12, overflow: "hidden",
                 border: "1px solid var(--line)",
@@ -212,7 +213,7 @@ export default function Hero() {
             </div>
 
             {/* stats strip */}
-            <div style={{ marginTop: 20, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+            <div className="hero-stats" style={{ marginTop: 20, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
               <StatTile num={total} label={lang === "en" ? "Projects tracked" : "अनुगमित परियोजना"} />
               <StatTile num={ongoing} label={lang === "en" ? "In progress" : "निर्माणाधीन"} accent="var(--accent)" />
               <StatTile num={completed} label={lang === "en" ? "Completed" : "सम्पन्न"} accent="#5FBA89" />
