@@ -5,7 +5,6 @@ import { STR, useLang, lt } from "@/lib/i18n";
 import { MP_DATA } from "@/content/mp";
 import { PRIORITIES } from "@/content/priorities";
 import { PROJECTS } from "@/content/projects";
-import { STATUS } from "@/content/categories";
 import Icon from "./Icon";
 
 function StatTile({ num, label, accent = "var(--ink)" }: { num: number | string; label: string; accent?: string }) {
@@ -222,31 +221,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* marquee */}
-      <div className="marquee" style={{ marginTop: 40 }}>
-        <div className="marquee-track">
-          {Array.from({ length: 2 }).flatMap((_, j) =>
-            PROJECTS.slice(0, 8).map((p, i) => (
-              <span
-                key={j + "-" + i}
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 12, padding: "0 24px",
-                  fontSize: 13, color: "var(--ink-dim)",
-                  fontFamily: lang === "en" ? "var(--f-mono)" : "var(--f-deva)",
-                }}
-              >
-                <span style={{ color: STATUS[p.status].color, fontSize: 10 }}>●</span>
-                <span className="mono" style={{ color: "var(--ink-muted)", fontSize: 11 }}>
-                  {p.id}
-                </span>
-                <span>{lt(p, "title", lang)}</span>
-                <span style={{ color: "var(--ink-faint)" }}>·</span>
-                <span style={{ color: "var(--ink-muted)", fontSize: 12 }}>{lt(p, "updated", lang)}</span>
-              </span>
-            ))
-          )}
-        </div>
-      </div>
     </section>
   );
 }

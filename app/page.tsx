@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import Marquee from "@/components/Marquee";
 import Hero from "@/components/Hero";
 import Priorities from "@/components/Priorities";
 import ProjectTracker from "@/components/ProjectTracker";
@@ -13,6 +14,7 @@ export default function Page() {
   return (
     <>
       <Nav />
+      <Marquee />
       <Hero />
       <Priorities />
       <ProjectTracker />
