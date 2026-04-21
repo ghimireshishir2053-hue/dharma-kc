@@ -87,7 +87,7 @@ export default function Parliament() {
                 </div>
                 <div
                   className="mono"
-                  style={{ fontSize: 11, color: "var(--ink-muted)", letterSpacing: "0.06em" }}
+                  style={{ fontSize: 13, color: "var(--ink-muted)", letterSpacing: "0.06em" }}
                 >
                   {lt(p, "role", lang)} · {lt(p, "date", lang)}
                 </div>

@@ -15,7 +15,7 @@ function Field({ label, children, style }: { label: ReactNode; children: ReactNo
       <div
         className="mono"
         style={{
-          fontSize: 11, color: "var(--ink-muted)",
+          fontSize: 13, color: "var(--ink-muted)",
           letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6,
         }}
       >
@@ -257,7 +257,7 @@ export default function Grievance() {
                         alignItems: "center", marginBottom: 4,
                       }}
                     >
-                      <span className="mono" style={{ fontSize: 11, color: "var(--ink-muted)" }}>
+                      <span className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
                         {g.id}
                       </span>
                       <span className={`badge ${g.kind}`}>{lt(g, "status", lang)}</span>
@@ -265,7 +265,7 @@ export default function Grievance() {
                     <div style={{ color: "var(--ink)" }}>{lt(g, "summary", lang)}</div>
                     <div
                       className="mono"
-                      style={{ fontSize: 10, color: "var(--ink-faint)", marginTop: 4 }}
+                      style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 4 }}
                     >
                       {lt(g, "kind", lang)} · {g.days} {lang === "en" ? "days ago" : "दिन अघि"}
                     </div>

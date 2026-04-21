@@ -34,10 +34,10 @@ export default function News() {
             <div style={{ padding: 28, flex: 1, display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 14 }}>
                 <span className="pill accent">{lt(NEWS[0], "kind", lang)}</span>
-                <span className="mono" style={{ fontSize: 11, color: "var(--ink-muted)" }}>
+                <span className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
                   {lt(NEWS[0], "outlet", lang)}
                 </span>
-                <span className="mono" style={{ fontSize: 11, color: "var(--ink-muted)" }}>
+                <span className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
                   · {lt(NEWS[0], "date", lang)}
                 </span>
               </div>
@@ -49,10 +49,10 @@ export default function News() {
           {NEWS.slice(1, 5).map((n, i) => (
             <a key={i} className="card" style={{ padding: 20, display: "flex", flexDirection: "column", gap: 14 }}>
               <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                <span className="pill muted" style={{ fontSize: 10 }}>
+                <span className="pill muted" style={{ fontSize: 12 }}>
                   {lt(n, "kind", lang)}
                 </span>
-                <span className="mono" style={{ fontSize: 11, color: "var(--ink-muted)" }}>
+                <span className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
                   {lt(n, "date", lang)}
                 </span>
               </div>
@@ -61,7 +61,7 @@ export default function News() {
               </h4>
               <div
                 className="mono"
-                style={{ fontSize: 11, color: "var(--ink-muted)", letterSpacing: "0.06em" }}
+                style={{ fontSize: 13, color: "var(--ink-muted)", letterSpacing: "0.06em" }}
               >
                 {lt(n, "outlet", lang)}
               </div>

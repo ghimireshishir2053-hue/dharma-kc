@@ -45,7 +45,7 @@ export default function Priorities() {
                 >
                   {lt(p, "num", lang)}
                 </span>
-                <span className="pill muted" style={{ fontSize: 10 }}>
+                <span className="pill muted" style={{ fontSize: 12 }}>
                   {lt(p, "tag", lang)}
                 </span>
               </div>
@@ -69,7 +69,7 @@ export default function Priorities() {
                 </span>
                 <span
                   className="mono"
-                  style={{ fontSize: 11, color: "var(--ink-muted)", marginLeft: 8 }}
+                  style={{ fontSize: 13, color: "var(--ink-muted)", marginLeft: 8 }}
                 >
                   {lt(p, "status", lang)}
                 </span>

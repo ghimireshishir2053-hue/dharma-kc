@@ -66,7 +66,7 @@ export default function Footer() {
               </div>
               <div>
                 <div style={{ fontSize: 16, fontWeight: 600 }}>{lt(MP_DATA, "name", lang)}</div>
-                <div className="mono" style={{ fontSize: 11, color: "var(--ink-muted)" }}>
+                <div className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
                   {lang === "en" ? "MP · Lamjung 1" : "सांसद · लमजुङ १"}
                 </div>
               </div>
@@ -142,7 +142,7 @@ export default function Footer() {
           style={{
             borderTop: "1px solid var(--line)", paddingTop: 28,
             display: "flex", justifyContent: "space-between", alignItems: "center",
-            fontSize: 12, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
+            fontSize: 13, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
           }}
         >
           <span>{t(STR.footerDisclaimer)}</span>

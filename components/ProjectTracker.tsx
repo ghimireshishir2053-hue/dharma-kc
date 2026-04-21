@@ -28,7 +28,7 @@ function CatChip({
     >
       {icon && <Icon name={icon} size={13} />}
       {label}
-      <span className="mono" style={{ fontSize: 10, opacity: 0.7, marginLeft: 2 }}>
+      <span className="mono" style={{ fontSize: 12, opacity: 0.7, marginLeft: 2 }}>
         {count}
       </span>
     </button>
@@ -41,7 +41,7 @@ function Meta({ label, value }: { label: string; value: string }) {
       <div
         className="mono"
         style={{
-          fontSize: 10, color: "var(--ink-muted)", letterSpacing: "0.08em",
+          fontSize: 12, color: "var(--ink-muted)", letterSpacing: "0.08em",
           textTransform: "uppercase", marginBottom: 4,
         }}
       >
@@ -80,14 +80,14 @@ function ProjectCard({ p }: { p: Project }) {
           <div
             className="mono"
             style={{
-              fontSize: 11, color: "var(--ink-dim)",
+              fontSize: 13, color: "var(--ink-dim)",
               letterSpacing: "0.08em", textTransform: "uppercase",
             }}
           >
             {lang === "en" ? cat.en : cat.ne}
           </div>
         </div>
-        <div className="mono" style={{ fontSize: 10, color: "var(--ink-muted)" }}>
+        <div className="mono" style={{ fontSize: 12, color: "var(--ink-muted)" }}>
           {p.id}
         </div>
       </div>
@@ -103,7 +103,7 @@ function ProjectCard({ p }: { p: Project }) {
               display: "inline-flex", alignItems: "center", gap: 6,
               padding: "4px 10px", borderRadius: 4,
               background: `${st.color}18`, color: st.color,
-              fontSize: 11, fontFamily: "var(--f-mono)",
+              fontSize: 13, fontFamily: "var(--f-mono)",
               letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 500,
             }}
           >
@@ -150,13 +150,13 @@ function ProjectCard({ p }: { p: Project }) {
             <span
               className="mono"
               style={{
-                fontSize: 10, color: "var(--ink-muted)",
+                fontSize: 12, color: "var(--ink-muted)",
                 letterSpacing: "0.1em", textTransform: "uppercase",
               }}
             >
               {lang === "en" ? "Latest update" : "पछिल्लो अद्यावधिक"}
             </span>
-            <span className="mono" style={{ fontSize: 10, color: "var(--ink-muted)" }}>
+            <span className="mono" style={{ fontSize: 12, color: "var(--ink-muted)" }}>
               {lt(p, "updated", lang)}
             </span>
           </div>
@@ -181,7 +181,7 @@ function ProjectCard({ p }: { p: Project }) {
             <span
               key={i}
               style={{
-                padding: "3px 10px", borderRadius: 999, fontSize: 11,
+                padding: "3px 10px", borderRadius: 999, fontSize: 13,
                 background: "var(--surface-2)", color: "var(--ink-dim)",
                 border: "1px solid var(--line)",
               }}
@@ -244,7 +244,7 @@ export default function ProjectTracker() {
               : "लमजुङका ८ स्थानीय तहमा चलिरहेका, योजनामा रहेका र सम्पन्न सबै परियोजना — वर्ग, पालिका र स्थिति अनुसार।"
           }
           right={
-            <div style={{ display: "flex", gap: 12, fontFamily: "var(--f-mono)", fontSize: 11, color: "var(--ink-muted)" }}>
+            <div style={{ display: "flex", gap: 12, fontFamily: "var(--f-mono)", fontSize: 13, color: "var(--ink-muted)" }}>
               <div style={{ textAlign: "right" }}>
                 <div style={{ fontSize: 28, color: "var(--ink)", fontWeight: 500 }}>{PROJECTS.length}</div>
                 <div style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}>
@@ -265,7 +265,7 @@ export default function ProjectTracker() {
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
             <span
               style={{
-                fontSize: 11, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
+                fontSize: 13, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
                 letterSpacing: "0.08em", textTransform: "uppercase", marginRight: 6,
               }}
             >
@@ -294,7 +294,7 @@ export default function ProjectTracker() {
             <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
               <span
                 style={{
-                  fontSize: 11, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
+                  fontSize: 13, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
                   letterSpacing: "0.08em", textTransform: "uppercase",
                 }}
               >
@@ -314,7 +314,7 @@ export default function ProjectTracker() {
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <span
                 style={{
-                  fontSize: 11, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
+                  fontSize: 13, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
                   letterSpacing: "0.08em", textTransform: "uppercase",
                 }}
               >
@@ -373,7 +373,7 @@ export default function ProjectTracker() {
           <div
             style={{
               marginTop: 10, display: "flex", gap: 18, flexWrap: "wrap",
-              fontSize: 11, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
+              fontSize: 13, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
             }}
           >
             {(Object.entries(STATUS) as [StatusId, typeof STATUS[StatusId]][]).map(([k, v]) =>
@@ -396,7 +396,7 @@ export default function ProjectTracker() {
           <span>
             {filtered.length} / {PROJECTS.length} {lang === "en" ? "projects" : "परियोजना"}
           </span>
-          <span style={{ letterSpacing: "0.08em", textTransform: "uppercase", fontSize: 11 }}>
+          <span style={{ letterSpacing: "0.08em", textTransform: "uppercase", fontSize: 13 }}>
             {lang === "en" ? "sorted by last update" : "पछिल्लो अद्यावधिक अनुसार"}
           </span>
         </div>

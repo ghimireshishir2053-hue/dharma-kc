@@ -24,8 +24,8 @@ export default function Marquee() {
                 fontFamily: lang === "en" ? "var(--f-mono)" : "var(--f-deva)",
               }}
             >
-              <span style={{ color: STATUS[p.status].color, fontSize: 10 }}>●</span>
-              <span className="mono" style={{ color: "var(--ink-muted)", fontSize: 11 }}>
+              <span style={{ color: STATUS[p.status].color, fontSize: 12 }}>●</span>
+              <span className="mono" style={{ color: "var(--ink-muted)", fontSize: 13 }}>
                 {p.id}
               </span>
               <span>{lt(p, "title", lang)}</span>

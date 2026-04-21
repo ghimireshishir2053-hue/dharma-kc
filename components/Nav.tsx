@@ -63,7 +63,7 @@ export default function Nav() {
             <div
               className="mono"
               style={{
-                fontSize: 10, color: "var(--ink-muted)",
+                fontSize: 12, color: "var(--ink-muted)",
                 letterSpacing: "0.08em", textTransform: "uppercase",
               }}
             >
@@ -90,7 +90,7 @@ export default function Nav() {
           <div
             style={{
               display: "flex", border: "1px solid var(--line)", borderRadius: 8,
-              padding: 2, fontFamily: "var(--f-mono)", fontSize: 11,
+              padding: 2, fontFamily: "var(--f-mono)", fontSize: 13,
             }}
           >
             <button

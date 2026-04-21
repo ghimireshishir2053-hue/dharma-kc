@@ -37,7 +37,7 @@ export default function Events() {
                 <div
                   className="mono"
                   style={{
-                    fontSize: 11, color: "var(--ink-muted)",
+                    fontSize: 13, color: "var(--ink-muted)",
                     letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 4,
                   }}
                 >
@@ -69,7 +69,7 @@ export default function Events() {
                 >
                   <Icon name="pin" size={12} /> {lt(e, "loc", lang)}
                 </div>
-                <span className="pill muted" style={{ fontSize: 10 }}>
+                <span className="pill muted" style={{ fontSize: 12 }}>
                   {lt(e, "kind", lang)}
                 </span>
               </div>

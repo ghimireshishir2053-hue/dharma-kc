@@ -15,7 +15,7 @@ function StatTile({ num, label, accent = "var(--ink)" }: { num: number | string;
       </div>
       <div
         style={{
-          fontSize: 11, color: "var(--ink-muted)", marginTop: 8,
+          fontSize: 13, color: "var(--ink-muted)", marginTop: 8,
           textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--f-mono)",
         }}
       >
@@ -101,7 +101,7 @@ export default function Hero() {
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
                 <div className="eyebrow">{lang === "en" ? "On the floor now" : "अहिले सदनमा"}</div>
-                <div className="mono" style={{ fontSize: 11, color: "var(--ink-muted)" }}>
+                <div className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
                   {lang === "en" ? "Live" : "प्रत्यक्ष"}
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default function Hero() {
                   <div
                     className="mono"
                     style={{
-                      fontSize: 10, color: "rgba(255,255,255,0.7)",
+                      fontSize: 12, color: "rgba(255,255,255,0.7)",
                       letterSpacing: "0.12em", textTransform: "uppercase",
                     }}
                   >
@@ -199,7 +199,7 @@ export default function Hero() {
                 <div
                   className="mono"
                   style={{
-                    fontSize: 10, color: "rgba(255,255,255,0.6)", letterSpacing: "0.12em",
+                    fontSize: 12, color: "rgba(255,255,255,0.6)", letterSpacing: "0.12em",
                     textTransform: "uppercase", marginBottom: 6,
                   }}
                 >

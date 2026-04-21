@@ -17,7 +17,7 @@ function MuniStat({
       <div
         className="mono"
         style={{
-          fontSize: 10, color: "var(--ink-muted)",
+          fontSize: 12, color: "var(--ink-muted)",
           letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 4,
         }}
       >
@@ -56,7 +56,7 @@ export default function LamjungMap() {
                 <div
                   className="mono"
                   style={{
-                    fontSize: 10, color: "var(--ink-muted)",
+                    fontSize: 12, color: "var(--ink-muted)",
                     textTransform: "uppercase", letterSpacing: "0.08em",
                   }}
                 >
@@ -68,7 +68,7 @@ export default function LamjungMap() {
                 <div
                   className="mono"
                   style={{
-                    fontSize: 10, color: "var(--ink-muted)",
+                    fontSize: 12, color: "var(--ink-muted)",
                     textTransform: "uppercase", letterSpacing: "0.08em",
                   }}
                 >
@@ -80,7 +80,7 @@ export default function LamjungMap() {
                 <div
                   className="mono"
                   style={{
-                    fontSize: 10, color: "var(--ink-muted)",
+                    fontSize: 12, color: "var(--ink-muted)",
                     textTransform: "uppercase", letterSpacing: "0.08em",
                   }}
                 >
@@ -211,7 +211,7 @@ export default function LamjungMap() {
               style={{
                 position: "absolute", top: 16, right: 16,
                 background: "rgba(255,254,250,0.92)", border: "1px solid var(--line)",
-                borderRadius: 8, padding: "10px 14px", fontSize: 11,
+                borderRadius: 8, padding: "10px 14px", fontSize: 13,
                 fontFamily: "var(--f-mono)", color: "var(--ink-dim)",
               }}
             >
@@ -239,7 +239,7 @@ export default function LamjungMap() {
                 <span className="eyebrow">
                   {lang === "en" ? (muni.hq ? "District HQ" : muni.typeEn) : muni.hq ? "सदरमुकाम" : muni.type}
                 </span>
-                <span className="mono" style={{ fontSize: 11, color: "var(--ink-muted)" }}>
+                <span className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
                   {active.toUpperCase()}
                 </span>
               </div>
@@ -258,7 +258,7 @@ export default function LamjungMap() {
                 <div
                   className="mono"
                   style={{
-                    fontSize: 10, color: "var(--ink-muted)",
+                    fontSize: 12, color: "var(--ink-muted)",
                     letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6,
                   }}
                 >
@@ -270,7 +270,7 @@ export default function LamjungMap() {
               <div
                 className="mono"
                 style={{
-                  fontSize: 10, color: "var(--ink-muted)",
+                  fontSize: 12, color: "var(--ink-muted)",
                   letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 10,
                 }}
               >
@@ -321,7 +321,7 @@ export default function LamjungMap() {
                         <span
                           className="mono"
                           style={{
-                            fontSize: 10, color: st.color,
+                            fontSize: 12, color: st.color,
                             padding: "3px 8px", borderRadius: 3,
                             background: `${st.color}18`,
                             letterSpacing: "0.06em", textTransform: "uppercase",
@@ -340,7 +340,7 @@ export default function LamjungMap() {
               <div
                 className="mono"
                 style={{
-                  fontSize: 10, color: "var(--ink-muted)",
+                  fontSize: 12, color: "var(--ink-muted)",
                   letterSpacing: "0.1em", textTransform: "uppercase",
                   marginBottom: 10, padding: "0 8px",
                 }}
@@ -368,7 +368,7 @@ export default function LamjungMap() {
                     <span
                       className="mono"
                       style={{
-                        fontSize: 11,
+                        fontSize: 13,
                         color: active === m.id ? "var(--accent)" : "var(--ink-muted)",
                       }}
                     >
