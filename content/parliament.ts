@@ -1,0 +1,58 @@
+import type { ParliamentItem } from "@/lib/types";
+
+export const PARLIAMENT: ParliamentItem[] = [
+  {
+    type: "bill",
+    titleNe: "विज्ञान, प्रविधि र नवप्रवर्तन कोष विधेयक, २०८२",
+    titleEn: "Science, Technology & Innovation Fund Bill, 2082",
+    roleNe: "सहप्रस्तावक", roleEn: "Co-sponsor",
+    dateNe: "२०८२ माघ ८", dateEn: "Jan 21, 2026",
+    statusNe: "समितिमा", statusEn: "In committee",
+    statusKind: "pending",
+  },
+  {
+    type: "question",
+    titleNe: "मर्स्याङ्दी करिडोरमा अनधिकृत बालुवा खानीबारे प्रश्न",
+    titleEn: "Question on unauthorised sand mining in Marsyangdi corridor",
+    roleNe: "प्रश्नकर्ता", roleEn: "Asked by member",
+    dateNe: "२०८२ माघ १५", dateEn: "Jan 28, 2026",
+    statusNe: "जवाफ प्राप्त", statusEn: "Answered",
+    statusKind: "ok",
+  },
+  {
+    type: "committee",
+    titleNe: "वातावरण तथा जलवायु परिवर्तन समिति — सदस्य",
+    titleEn: "Committee on Environment & Climate Change — Member",
+    roleNe: "सदस्य", roleEn: "Member",
+    dateNe: "२०८२ पुस २०", dateEn: "Jan 4, 2026",
+    statusNe: "सक्रिय", statusEn: "Active",
+    statusKind: "new",
+  },
+  {
+    type: "speech",
+    titleNe: "बजेट अधिवेशनमा लमजुङको पूर्वाधार विषयक भाषण",
+    titleEn: "Speech on Lamjung infrastructure during Budget Session",
+    roleNe: "मञ्चमा", roleEn: "On floor",
+    dateNe: "२०८२ माघ २२", dateEn: "Feb 4, 2026",
+    statusNe: "१८ मिनेट", statusEn: "18 min",
+    statusKind: "new",
+  },
+  {
+    type: "bill",
+    titleNe: "जलवायु अनुकूलन कोष निर्माण विधेयक, २०८२",
+    titleEn: "Climate Adaptation Fund Bill, 2082",
+    roleNe: "मुख्य प्रस्तावक", roleEn: "Lead sponsor",
+    dateNe: "२०८२ फागुन ३", dateEn: "Feb 15, 2026",
+    statusNe: "मस्यौदा", statusEn: "Drafting",
+    statusKind: "pending",
+  },
+  {
+    type: "question",
+    titleNe: "अन्नपूर्ण संरक्षण क्षेत्रमा पदयात्रा अनुमति विधि",
+    titleEn: "Question on TIMS permit process in ACAP",
+    roleNe: "प्रश्नकर्ता", roleEn: "Asked by member",
+    dateNe: "२०८२ फागुन १०", dateEn: "Feb 22, 2026",
+    statusNe: "लिखित जवाफ", statusEn: "Written reply",
+    statusKind: "ok",
+  },
+];
