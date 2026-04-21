@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import AnnouncementModal from "@/components/AnnouncementModal";
 import Marquee from "@/components/Marquee";
 import Hero from "@/components/Hero";
 import Priorities from "@/components/Priorities";
@@ -26,6 +27,7 @@ export default function Page() {
       <Grievance />
       <Events />
       <Footer />
+      <AnnouncementModal />
     </>
   );
 }
