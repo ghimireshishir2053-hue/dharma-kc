@@ -16,7 +16,7 @@ export default function Events() {
           kicker={t(STR.eventsKicker)}
           title={t(STR.eventsTitle)}
         />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+        <div className="r-grid-events">
           {EVENTS.map((e, i) => (
             <div key={i} className="card" style={{ padding: 0, overflow: "hidden" }}>
               <div

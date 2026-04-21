@@ -22,8 +22,8 @@ export default function Priorities() {
         />
 
         <div
+          className="r-grid-2"
           style={{
-            display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0,
             border: "1px solid var(--line)", borderRadius: 12,
             overflow: "hidden", background: "var(--surface)",
           }}

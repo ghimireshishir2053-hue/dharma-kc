@@ -166,8 +166,8 @@ function ProjectCard({ p }: { p: Project }) {
         </div>
 
         <div
+          className="r-grid-project-meta"
           style={{
-            display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12,
             marginBottom: 14, paddingTop: 14, borderTop: "1px solid var(--line-soft)",
           }}
         >
@@ -290,7 +290,7 @@ export default function ProjectTracker() {
             ))}
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1.5fr", gap: 16, alignItems: "center" }}>
+          <div className="r-grid-filter">
             <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
               <span
                 style={{
@@ -411,7 +411,7 @@ export default function ProjectTracker() {
             {lang === "en" ? "No projects match your filters." : "कुनै परियोजना फेला परेन।"}
           </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div className="r-grid-project-cards">
             {filtered.map((p) => (
               <ProjectCard key={p.id} p={p} />
             ))}

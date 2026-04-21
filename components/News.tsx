@@ -22,7 +22,7 @@ export default function News() {
           }
         />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr", gap: 20 }}>
+        <div className="r-grid-news">
           <a
             className="card"
             style={{

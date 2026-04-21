@@ -81,7 +81,7 @@ export default function Grievance() {
           sub={t(STR.grSub)}
         />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 24 }}>
+        <div className="r-grid-13">
           <div className="card" style={{ padding: 32, position: "relative" }}>
             {submitted ? (
               <div style={{ padding: "40px 20px", textAlign: "center" }}>
@@ -107,7 +107,7 @@ export default function Grievance() {
               </div>
             ) : (
               <form onSubmit={submit}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+                <div className="r-grid-fields-2">
                   <Field label={t(STR.grName)}>
                     <input
                       required

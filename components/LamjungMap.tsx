@@ -91,7 +91,7 @@ export default function LamjungMap() {
           }
         />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 24 }}>
+        <div className="r-grid-13">
           <div
             className="card"
             style={{
@@ -247,7 +247,7 @@ export default function LamjungMap() {
                 {lang === "en" ? muni.en : muni.ne}
               </h3>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+              <div className="r-grid-muni-stats">
                 <MuniStat label={t(STR.mapPop)} value={muni.pop} />
                 <MuniStat label={t(STR.mapArea)} value={muni.area} />
                 <MuniStat label={t(STR.mapWards)} value={muni.wards} />
@@ -347,7 +347,7 @@ export default function LamjungMap() {
               >
                 {lang === "en" ? "All 8 local levels" : "सबै ८ स्थानीय तह"}
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 4 }}>
+              <div className="r-grid-palika-list">
                 {MUNICIPALITIES.map((m) => (
                   <button
                     key={m.id}

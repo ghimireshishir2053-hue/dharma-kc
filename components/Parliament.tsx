@@ -62,12 +62,8 @@ export default function Parliament() {
           {items.map((p, i) => (
             <div
               key={i}
+              className="r-parl-row"
               style={{
-                display: "grid",
-                gridTemplateColumns: "auto 1fr auto auto",
-                gap: 20,
-                alignItems: "center",
-                padding: "22px 28px",
                 borderBottom: i < items.length - 1 ? "1px solid var(--line)" : "none",
               }}
             >
@@ -92,8 +88,8 @@ export default function Parliament() {
                   {lt(p, "role", lang)} · {lt(p, "date", lang)}
                 </div>
               </div>
-              <span className={`badge ${p.statusKind}`}>{lt(p, "status", lang)}</span>
-              <button style={{ color: "var(--ink-muted)" }}>
+              <span className={`badge parl-badge ${p.statusKind}`}>{lt(p, "status", lang)}</span>
+              <button className="parl-arrow" style={{ color: "var(--ink-muted)" }}>
                 <Icon name="arrow-up-right" size={16} />
               </button>
             </div>

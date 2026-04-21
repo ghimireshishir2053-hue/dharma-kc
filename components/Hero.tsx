@@ -39,7 +39,7 @@ export default function Hero() {
     >
       {/* top strip */}
       <div
-        className="container-x"
+        className="container-x hero-top-strip"
         style={{
           display: "flex", justifyContent: "space-between", alignItems: "center",
           padding: "12px 32px", borderBottom: "1px solid var(--line-soft)",
@@ -63,8 +63,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="container-x" style={{ paddingTop: 80, paddingBottom: 40, position: "relative" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 64, alignItems: "flex-start" }}>
+      <div className="container-x hero-inner" style={{ paddingTop: 80, paddingBottom: 40, position: "relative" }}>
+        <div className="r-grid-hero">
           {/* LEFT */}
           <div>
             <div className="eyebrow" style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 14 }}>
@@ -152,7 +152,7 @@ export default function Hero() {
           </div>
 
           {/* RIGHT */}
-          <div>
+          <div className="hero-right">
             <div
               style={{
                 position: "relative", aspectRatio: "4 / 5", borderRadius: 12, overflow: "hidden",

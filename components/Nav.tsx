@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { STR, useLang, lt } from "@/lib/i18n";
 import { MP_DATA } from "@/content/mp";
+import Icon from "./Icon";
 
 export default function Nav() {
   const { lang, setLang, t } = useLang();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 60);
@@ -28,6 +30,7 @@ export default function Nav() {
   const go = (id: string) => {
     const el = document.getElementById(id);
     if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
+    setMenuOpen(false);
   };
 
   return (
@@ -72,7 +75,7 @@ export default function Nav() {
           </div>
         </a>
 
-        <nav style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 14 }}>
+        <nav className="desktop-only" style={{ alignItems: "center", gap: 4, fontSize: 14 }}>
           {items.map((it) => (
             <button
               key={it.id}
@@ -86,7 +89,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div className="desktop-only" style={{ alignItems: "center", gap: 10 }}>
           <div
             style={{
               display: "flex", border: "1px solid var(--line)", borderRadius: 8,
@@ -118,6 +121,64 @@ export default function Nav() {
             {t(STR.heroCTA1)}
           </button>
         </div>
+
+        {/* Mobile: lang toggle + hamburger */}
+        <div className="mobile-only" style={{ alignItems: "center", gap: 8 }}>
+          <div
+            style={{
+              display: "flex", border: "1px solid var(--line)", borderRadius: 8,
+              padding: 2, fontFamily: "var(--f-mono)", fontSize: 12,
+            }}
+          >
+            <button
+              onClick={() => setLang("ne")}
+              style={{
+                padding: "5px 8px", borderRadius: 6,
+                background: lang === "ne" ? "var(--ink)" : "transparent",
+                color: lang === "ne" ? "var(--bg)" : "var(--ink-dim)",
+              }}
+            >
+              NE
+            </button>
+            <button
+              onClick={() => setLang("en")}
+              style={{
+                padding: "5px 8px", borderRadius: 6,
+                background: lang === "en" ? "var(--ink)" : "transparent",
+                color: lang === "en" ? "var(--bg)" : "var(--ink-dim)",
+              }}
+            >
+              EN
+            </button>
+          </div>
+          <button
+            aria-label="Menu"
+            onClick={() => setMenuOpen((v) => !v)}
+            style={{
+              width: 40, height: 40, borderRadius: 8,
+              border: "1px solid var(--line)", color: "var(--ink)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}
+          >
+            <Icon name={menuOpen ? "x" : "menu"} size={20} />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile dropdown */}
+      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+        {items.map((it) => (
+          <button key={it.id} onClick={() => go(it.id)}>
+            {t(it.s)}
+          </button>
+        ))}
+        <button
+          onClick={() => go("grievance")}
+          className="btn btn-primary"
+          style={{ marginTop: 8, justifyContent: "center" }}
+        >
+          {t(STR.heroCTA1)}
+        </button>
       </div>
     </header>
   );

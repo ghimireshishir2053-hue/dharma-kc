@@ -46,12 +46,7 @@ export default function Footer() {
       style={{ background: "var(--bg-soft)", borderTop: "1px solid var(--line)", padding: "64px 0 32px" }}
     >
       <div className="container-x">
-        <div
-          style={{
-            display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1fr",
-            gap: 48, marginBottom: 48,
-          }}
-        >
+        <div className="r-grid-footer">
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
               <div
@@ -143,6 +138,7 @@ export default function Footer() {
             borderTop: "1px solid var(--line)", paddingTop: 28,
             display: "flex", justifyContent: "space-between", alignItems: "center",
             fontSize: 13, color: "var(--ink-muted)", fontFamily: "var(--f-mono)",
+            flexWrap: "wrap", gap: 12,
           }}
         >
           <span>{t(STR.footerDisclaimer)}</span>

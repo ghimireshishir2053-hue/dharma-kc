@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Space_Grotesk,
   Noto_Sans_Devanagari,
@@ -48,6 +48,12 @@ export const metadata: Metadata = {
   title: "माननीय धर्मराज के.सी. — सांसद, लमजुङ",
   description:
     "Official portal of Hon. Dharma Raj K.C., Member of Parliament, Lamjung-1, House of Representatives, Nepal.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
