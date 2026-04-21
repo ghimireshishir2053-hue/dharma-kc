@@ -87,6 +87,14 @@ export const CALL_FOR_EXPERTS = {
   ctaEn: "Apply now",
   ctaHref: "[Insert Link]",
 
+  // Paste the Google Form embed URL here.
+  // In Google Forms: Send → embed <> → copy the src="..." value
+  // (it ends with ?embedded=true). Example:
+  //   https://docs.google.com/forms/d/e/<ID>/viewform?embedded=true
+  // Leave empty until the form is ready — the /apply page will show a
+  // "setup pending" placeholder instead.
+  formEmbedUrl: "",
+
   tagNe: "सँगै मिलेर, समृद्ध र दिगो लमजुङ बनाऔं।",
   tagEn: "Together, let's build a better, sustainable and prosperous Lamjung.",
 };
