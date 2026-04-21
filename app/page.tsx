@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import Marquee from "@/components/Marquee";
 import Hero from "@/components/Hero";
 import Priorities from "@/components/Priorities";
+import CallForExperts from "@/components/CallForExperts";
 import ProjectTracker from "@/components/ProjectTracker";
 import LamjungMap from "@/components/LamjungMap";
 import Parliament from "@/components/Parliament";
@@ -17,6 +18,7 @@ export default function Page() {
       <Marquee />
       <Hero />
       <Priorities />
+      <CallForExperts />
       <ProjectTracker />
       <LamjungMap />
       <Parliament />
