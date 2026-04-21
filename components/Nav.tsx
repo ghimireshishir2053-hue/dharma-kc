@@ -36,7 +36,7 @@ export default function Nav() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: scrolled ? "rgba(11,15,20,0.85)" : "transparent",
+        background: scrolled ? "rgba(245,239,229,0.85)" : "transparent",
         backdropFilter: scrolled ? "blur(16px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
         borderBottom: scrolled ? "1px solid var(--line)" : "1px solid transparent",

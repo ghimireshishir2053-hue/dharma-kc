@@ -158,7 +158,7 @@ export default function Hero() {
               style={{
                 position: "relative", aspectRatio: "4 / 5", borderRadius: 12, overflow: "hidden",
                 border: "1px solid var(--line)",
-                background: "linear-gradient(165deg,#1B2430 0%, #0B0F14 60%, #1A1205 100%)",
+                background: "linear-gradient(165deg,#EFE7D8 0%, #F5EFE5 60%, #F2D9A0 100%)",
               }}
             >
               <Image

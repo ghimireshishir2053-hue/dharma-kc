@@ -96,13 +96,13 @@ export default function LamjungMap() {
             className="card"
             style={{
               padding: 0, overflow: "hidden", position: "relative",
-              minHeight: 560, background: "linear-gradient(165deg,#0F151D 0%,#141B25 100%)",
+              minHeight: 560, background: "linear-gradient(165deg,#F9F3E7 0%,#EFE7D8 100%)",
             }}
           >
             <svg viewBox="0 0 600 500" style={{ width: "100%", height: "100%", display: "block" }}>
               <defs>
                 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth="1" />
                 </pattern>
                 <filter id="glow">
                   <feGaussianBlur stdDeviation="3" result="blur" />
@@ -147,7 +147,7 @@ export default function LamjungMap() {
                       y={m.y - (isActive ? 46 : 38)}
                       textAnchor="middle"
                       fontSize="11"
-                      fill={isActive ? "#fff" : "rgba(255,255,255,0.7)"}
+                      fill={isActive ? "#1A1A1A" : "rgba(26,26,26,0.65)"}
                       style={{
                         fontFamily: lang === "en" ? "Space Grotesk" : "Noto Sans Devanagari",
                         fontWeight: isActive ? 600 : 400,
@@ -179,19 +179,19 @@ export default function LamjungMap() {
               })}
 
               <g transform="translate(540, 40)">
-                <circle r="18" fill="rgba(0,0,0,0.3)" stroke="rgba(255,255,255,0.2)" />
+                <circle r="18" fill="rgba(255,255,255,0.6)" stroke="rgba(0,0,0,0.2)" />
                 <path d="M 0 -10 L 3 0 L 0 8 L -3 0 Z" fill="var(--accent)" />
-                <text y="-22" textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.5)" style={{ fontFamily: "JetBrains Mono" }}>
+                <text y="-22" textAnchor="middle" fontSize="9" fill="rgba(26,26,26,0.6)" style={{ fontFamily: "JetBrains Mono" }}>
                   N
                 </text>
               </g>
 
               <g transform="translate(30, 470)">
-                <line x1="0" y1="0" x2="60" y2="0" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-                <line x1="0" y1="-4" x2="0" y2="4" stroke="rgba(255,255,255,0.4)" />
-                <line x1="30" y1="-3" x2="30" y2="3" stroke="rgba(255,255,255,0.4)" />
-                <line x1="60" y1="-4" x2="60" y2="4" stroke="rgba(255,255,255,0.4)" />
-                <text y="-8" fontSize="9" fill="rgba(255,255,255,0.5)" style={{ fontFamily: "JetBrains Mono" }}>
+                <line x1="0" y1="0" x2="60" y2="0" stroke="rgba(26,26,26,0.45)" strokeWidth="1" />
+                <line x1="0" y1="-4" x2="0" y2="4" stroke="rgba(26,26,26,0.45)" />
+                <line x1="30" y1="-3" x2="30" y2="3" stroke="rgba(26,26,26,0.45)" />
+                <line x1="60" y1="-4" x2="60" y2="4" stroke="rgba(26,26,26,0.45)" />
+                <text y="-8" fontSize="9" fill="rgba(26,26,26,0.55)" style={{ fontFamily: "JetBrains Mono" }}>
                   0 — 10 km
                 </text>
               </g>
@@ -200,7 +200,7 @@ export default function LamjungMap() {
                 x="30"
                 y="40"
                 fontSize="11"
-                fill="rgba(255,255,255,0.4)"
+                fill="rgba(26,26,26,0.5)"
                 style={{ fontFamily: "JetBrains Mono", letterSpacing: "0.1em" }}
               >
                 LAMJUNG · 28.21°N 84.40°E
@@ -210,7 +210,7 @@ export default function LamjungMap() {
             <div
               style={{
                 position: "absolute", top: 16, right: 16,
-                background: "rgba(11,15,20,0.85)", border: "1px solid var(--line)",
+                background: "rgba(255,254,250,0.92)", border: "1px solid var(--line)",
                 borderRadius: 8, padding: "10px 14px", fontSize: 11,
                 fontFamily: "var(--f-mono)", color: "var(--ink-dim)",
               }}
