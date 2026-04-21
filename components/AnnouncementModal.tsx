@@ -5,18 +5,15 @@ import { useRouter } from "next/navigation";
 import { useLang } from "@/lib/i18n";
 import Icon from "./Icon";
 
-const KEY = "lamjung-notice-v1";
-const DISMISS_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
-
 export default function AnnouncementModal() {
   const { lang } = useLang();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
 
+  // Show on every page load. Dismissal only applies for the current page
+  // view — reloading brings the notice back.
   useEffect(() => {
-    const raw = localStorage.getItem(KEY);
-    if (raw && parseInt(raw, 10) > Date.now()) return;
     const t = setTimeout(() => {
       setMounted(true);
       requestAnimationFrame(() => setVisible(true));
@@ -39,17 +36,11 @@ export default function AnnouncementModal() {
   }, [mounted]);
 
   const dismiss = () => {
-    try {
-      localStorage.setItem(KEY, String(Date.now() + DISMISS_DURATION_MS));
-    } catch {}
     setVisible(false);
     setTimeout(() => setMounted(false), 280);
   };
 
   const goToApply = () => {
-    try {
-      localStorage.setItem(KEY, String(Date.now() + DISMISS_DURATION_MS));
-    } catch {}
     router.push("/apply");
   };
 
