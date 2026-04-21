@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import { CALL_FOR_EXPERTS as C } from "@/content/callForExperts";
 import Icon from "./Icon";
@@ -284,22 +285,14 @@ export default function CallForExperts() {
               </p>
             </div>
             {C.ctaHref.startsWith("[") ? (
-              <button
-                type="button"
-                disabled
-                className="btn"
-                style={{
-                  justifyContent: "center",
-                  fontSize: 15,
-                  padding: "14px 20px",
-                  background: "var(--surface-2)",
-                  color: "var(--ink-muted)",
-                  border: "1px solid var(--line)",
-                  cursor: "not-allowed",
-                }}
+              <Link
+                href="/apply"
+                className="btn btn-primary"
+                style={{ justifyContent: "center", fontSize: 15, padding: "14px 20px" }}
               >
-                {lang === "en" ? "Application link coming soon" : "आवेदन लिङ्क छिट्टै"}
-              </button>
+                {lang === "en" ? C.ctaEn : C.ctaNe}
+                <Icon name="arrow-right" size={16} />
+              </Link>
             ) : (
               <a
                 href={C.ctaHref}

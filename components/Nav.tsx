@@ -29,7 +29,12 @@ export default function Nav() {
 
   const go = (id: string) => {
     const el = document.getElementById(id);
-    if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
+    if (el) {
+      window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
+    } else {
+      // Not on the home page — navigate home with the hash
+      window.location.href = `/#${id}`;
+    }
     setMenuOpen(false);
   };
 
@@ -50,7 +55,7 @@ export default function Nav() {
         className="container-x"
         style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}
       >
-        <a href="#top" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <a href="/" style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div
             style={{
               width: 32, height: 32, borderRadius: 8,
