@@ -264,29 +264,54 @@ export default function CallForExperts() {
                 {lang === "en" ? C.deadlineLabelEn : C.deadlineLabelNe}
               </div>
               <div
-                className="mono"
+                className={C.deadlineValue.startsWith("[") ? "" : "mono"}
                 style={{
-                  fontSize: 22,
+                  fontSize: C.deadlineValue.startsWith("[") ? 18 : 22,
                   fontWeight: 600,
-                  color: "var(--ink)",
+                  color: C.deadlineValue.startsWith("[") ? "var(--ink-muted)" : "var(--ink)",
                   marginBottom: 14,
                   letterSpacing: "0.02em",
                 }}
               >
-                {C.deadlineValue}
+                {C.deadlineValue.startsWith("[")
+                  ? lang === "en"
+                    ? "To be announced"
+                    : "छिट्टै घोषणा हुनेछ"
+                  : C.deadlineValue}
               </div>
               <p style={{ fontSize: 14, color: "var(--ink-dim)", lineHeight: 1.55 }}>
                 {lang === "en" ? C.tagEn : C.tagNe}
               </p>
             </div>
-            <a
-              href={C.ctaHref}
-              className="btn btn-primary"
-              style={{ justifyContent: "center", fontSize: 15, padding: "14px 20px" }}
-            >
-              {lang === "en" ? C.ctaEn : C.ctaNe}
-              <Icon name="arrow-right" size={16} />
-            </a>
+            {C.ctaHref.startsWith("[") ? (
+              <button
+                type="button"
+                disabled
+                className="btn"
+                style={{
+                  justifyContent: "center",
+                  fontSize: 15,
+                  padding: "14px 20px",
+                  background: "var(--surface-2)",
+                  color: "var(--ink-muted)",
+                  border: "1px solid var(--line)",
+                  cursor: "not-allowed",
+                }}
+              >
+                {lang === "en" ? "Application link coming soon" : "आवेदन लिङ्क छिट्टै"}
+              </button>
+            ) : (
+              <a
+                href={C.ctaHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+                style={{ justifyContent: "center", fontSize: 15, padding: "14px 20px" }}
+              >
+                {lang === "en" ? C.ctaEn : C.ctaNe}
+                <Icon name="arrow-right" size={16} />
+              </a>
+            )}
           </div>
         </div>
       </div>
