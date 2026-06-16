@@ -38,33 +38,7 @@ export default function Hero() {
       className="techgrid"
       style={{ position: "relative", overflow: "hidden", paddingTop: 24, paddingBottom: 96 }}
     >
-      {/* top strip */}
-      <div
-        className="container-x hero-top-strip"
-        style={{
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "12px 32px", borderBottom: "1px solid var(--line-soft)",
-        }}
-      >
-        <div
-          style={{
-            display: "flex", alignItems: "center", gap: 14,
-            fontSize: 12, color: "var(--ink-dim)", fontFamily: "var(--f-mono)",
-          }}
-        >
-          <span className="pill live">{t(STR.liveBadge)}</span>
-          <span>{t(STR.inSession)}</span>
-        </div>
-        <div
-          style={{ fontSize: 12, color: "var(--ink-muted)", fontFamily: "var(--f-mono)", display: "flex", gap: 18 }}
-        >
-          <span>{lang === "en" ? "Session · 2082/83" : "अधिवेशन · २०८२/८३"}</span>
-          <span>·</span>
-          <span>{lang === "en" ? "Day 47" : "दिन ४७"}</span>
-        </div>
-      </div>
-
-      <div className="container-x hero-inner" style={{ paddingTop: 80, paddingBottom: 40, position: "relative" }}>
+      <div className="container-x hero-inner" style={{ paddingTop: 56, paddingBottom: 40, position: "relative" }}>
         <div className="r-grid-hero">
           {/* LEFT */}
           <div>
