@@ -249,3 +249,9 @@ input:focus, textarea:focus, select:focus{border-color:var(--accent);}
 @media (prefers-reduced-motion: reduce){
   .photo-blue-bg::before,.photo-blue-bg::after,.photo-blue-sheen{animation:none;}
 }
+
+/* gentle clarity pass on the hero portrait (CSS-only enhancement) */
+.hero-photo{
+  filter:contrast(1.07) saturate(1.10) brightness(1.02);
+  image-rendering:auto;
+}

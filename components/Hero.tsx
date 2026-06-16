@@ -183,6 +183,7 @@ export default function Hero() {
                 fill
                 priority
                 sizes="(max-width: 1280px) 40vw, 500px"
+                className="hero-photo"
                 style={{ objectFit: "cover", objectPosition: "center top" }}
               />
               {/* moving blue light over the photo */}
