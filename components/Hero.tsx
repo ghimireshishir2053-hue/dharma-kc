@@ -175,6 +175,8 @@ export default function Hero() {
                 background: "linear-gradient(165deg,#EFE7D8 0%, #F5EFE5 60%, #F2D9A0 100%)",
               }}
             >
+              {/* animated blue background (within the photo frame) */}
+              <div className="photo-blue-bg" aria-hidden />
               <Image
                 src="/portraits/dharma.jpg"
                 alt="Hon. Dharma Raj K.C."
@@ -183,6 +185,8 @@ export default function Hero() {
                 sizes="(max-width: 1280px) 40vw, 500px"
                 style={{ objectFit: "cover", objectPosition: "center top" }}
               />
+              {/* moving blue light over the photo */}
+              <div className="photo-blue-sheen" aria-hidden />
               <div
                 style={{
                   position: "absolute", top: 16, left: 16, right: 16,
