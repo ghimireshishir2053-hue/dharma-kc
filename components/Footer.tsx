@@ -1,8 +1,9 @@
 "use client";
 
 import { STR, useLang, lt, BiString } from "@/lib/i18n";
-import { MP_DATA, CV } from "@/content/mp";
+import { MP_DATA, CV, SOCIALS } from "@/content/mp";
 import Icon from "./Icon";
+import SocialIcon from "./SocialIcon";
 
 function FooterCol({ title, items }: { title: string; items: [BiString, string][] }) {
   const { t } = useLang();
@@ -90,6 +91,34 @@ export default function Footer() {
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <Icon name="phone" size={14} /> {MP_DATA.phone}
+              </div>
+            </div>
+
+            <div style={{ marginTop: 24 }}>
+              <div className="eyebrow" style={{ marginBottom: 12 }}>
+                {lang === "en" ? "Find Dharma K.C. on" : "धर्मराज के.सी.लाई यहाँ भेट्नुहोस्"}
+              </div>
+              <div style={{ display: "flex", gap: 10 }}>
+                {SOCIALS.map((s) => (
+                  <a
+                    key={s.id}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    title={s.label}
+                    className="social-btn"
+                    style={{
+                      width: 40, height: 40, borderRadius: 10,
+                      border: "1px solid var(--line)", background: "var(--surface)",
+                      color: "var(--ink-dim)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      transition: "all .15s",
+                    }}
+                  >
+                    <SocialIcon name={s.id} size={18} />
+                  </a>
+                ))}
               </div>
             </div>
           </div>

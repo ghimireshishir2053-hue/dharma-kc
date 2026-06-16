@@ -8,6 +8,7 @@ export const CATEGORIES: Category[] = [
   { id: "water",   ne: "खानेपानी",         en: "Water Supply",       icon: "drop",     hue: "#3E7DB8" },
   { id: "edu",     ne: "शिक्षा र स्वास्थ्य", en: "Education & Health", icon: "building", hue: "#5FBA89" },
   { id: "digital", ne: "डिजिटल",           en: "Digital",            icon: "globe",    hue: "#6FA8D8" },
+  { id: "other",   ne: "अन्य",             en: "Others",             icon: "more",     hue: "#A89B86" },
 ];
 
 export const STATUS: Record<StatusId, StatusDef> = {

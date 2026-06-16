@@ -186,3 +186,7 @@ input:focus, textarea:focus, select:focus{border-color:var(--accent);}
 .badge.new{background:rgba(62,125,184,0.15);color:#6FA8D8;}
 
 .hero-name{font-family:var(--f-deva-serif);font-weight:600;line-height:0.95;letter-spacing:-0.02em;}
+
+.cta-card-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(201,138,31,0.7);}
+.cta-card-secondary:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 12px 26px -16px rgba(11,15,20,0.35);}
+.social-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}

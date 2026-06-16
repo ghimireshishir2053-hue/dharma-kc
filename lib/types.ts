@@ -1,4 +1,4 @@
-export type CategoryId = "agri" | "hydro" | "tour" | "road" | "water" | "edu" | "digital";
+export type CategoryId = "agri" | "hydro" | "tour" | "road" | "water" | "edu" | "digital" | "other";
 
 export type StatusId =
   | "concept"
@@ -136,6 +136,21 @@ export type Grievance = {
   statusEn: string;
   days: number;
   kind: "ok" | "pending" | "new";
+};
+
+export type ProjectRequestPriority = "high" | "medium" | "low" | "review";
+
+export type ProjectRequest = {
+  id: string;
+  cat: CategoryId;
+  palika: PalikaId;
+  ward: number;
+  titleNe: string;
+  titleEn: string;
+  budgetNe: string;
+  budgetEn: string;
+  priority: ProjectRequestPriority;
+  days: number;
 };
 
 export type MP = {

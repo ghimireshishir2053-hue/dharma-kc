@@ -4,10 +4,12 @@ import { ReactNode, useState } from "react";
 import { STR, useLang, lt } from "@/lib/i18n";
 import { MUNICIPALITIES } from "@/content/municipalities";
 import { PROJECTS } from "@/content/projects";
+import { PLACES } from "@/content/places";
 import { CATEGORIES, STATUS } from "@/content/categories";
 import type { PalikaId } from "@/lib/types";
 import Icon from "./Icon";
 import SectionHead from "./SectionHead";
+import PlacePhoto from "./PlacePhoto";
 
 function MuniStat({
   label, value, accent = "var(--ink)",
@@ -35,6 +37,7 @@ export default function LamjungMap() {
   const [active, setActive] = useState<PalikaId>("besisahar");
   const muni = MUNICIPALITIES.find((m) => m.id === active)!;
   const muniProjects = PROJECTS.filter((p) => p.palika === active);
+  const places = PLACES[active] ?? [];
   const projectCount = (id: PalikaId) => PROJECTS.filter((p) => p.palika === id).length;
 
   return (
@@ -266,6 +269,54 @@ export default function LamjungMap() {
                 </div>
                 <div style={{ fontSize: 14 }}>{lt(muni, "issue", lang)}</div>
               </div>
+
+              {/* Popular places */}
+              <div
+                className="mono"
+                style={{
+                  fontSize: 12, color: "var(--ink-muted)",
+                  letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4,
+                }}
+              >
+                {t(STR.mapPlaces)} · {places.length}
+              </div>
+              <div style={{ fontSize: 12, color: "var(--ink-muted)", marginBottom: 12, lineHeight: 1.4 }}>
+                {t(STR.mapPlacesNote)}
+              </div>
+              {places.length === 0 ? (
+                <div
+                  style={{
+                    padding: 20, textAlign: "center", color: "var(--ink-muted)",
+                    fontSize: 13, border: "1px dashed var(--line)", borderRadius: 8, marginBottom: 20,
+                  }}
+                >
+                  {t(STR.mapPlacesEmpty)}
+                </div>
+              ) : (
+                <div style={{ display: "grid", gap: 16, marginBottom: 20 }}>
+                  {places.map((pl, i) => (
+                    <div key={i}>
+                      <PlacePhoto src={pl.img} alt={lt(pl, "name", lang)} icon={pl.icon} />
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
+                        <h4 style={{ fontSize: 16, fontWeight: 600 }}>{lt(pl, "name", lang)}</h4>
+                        <span
+                          className="mono"
+                          style={{
+                            fontSize: 11, padding: "3px 8px", borderRadius: 999,
+                            background: "var(--surface-2)", color: "var(--ink-muted)",
+                            letterSpacing: "0.04em", textTransform: "uppercase",
+                          }}
+                        >
+                          {lt(pl, "kind", lang)}
+                        </span>
+                      </div>
+                      <p style={{ fontSize: 13, color: "var(--ink-dim)", marginTop: 6, lineHeight: 1.5 }}>
+                        {lt(pl, "desc", lang)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <div
                 className="mono"

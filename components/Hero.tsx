@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { STR, useLang, lt } from "@/lib/i18n";
-import { MP_DATA } from "@/content/mp";
-import { PRIORITIES } from "@/content/priorities";
+import { MP_DATA, SOCIALS } from "@/content/mp";
 import { PROJECTS } from "@/content/projects";
 import Icon from "./Icon";
+import SocialIcon from "./SocialIcon";
 
 function StatTile({ num, label, accent = "var(--ink)" }: { num: number | string; label: string; accent?: string }) {
   return (
@@ -92,61 +93,102 @@ export default function Hero() {
                 : "जलवायु वित्त र प्रविधि विशेषज्ञ — अब लमजुङबासीको प्रतिनिधित्व गर्दै संघीय संसद्‌मा।"}
             </div>
 
-            {/* priorities on floor */}
-            <div
-              style={{
-                border: "1px solid var(--line)", borderRadius: 12,
-                background: "var(--surface)", padding: 24, maxWidth: 620,
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-                <div className="eyebrow">{lang === "en" ? "On the floor now" : "अहिले सदनमा"}</div>
-                <div className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
-                  {lang === "en" ? "Live" : "प्रत्यक्ष"}
-                </div>
-              </div>
-              <div style={{ display: "grid", gap: 14 }}>
-                {PRIORITIES.slice(0, 3).map((p) => (
-                  <div
-                    key={p.id}
-                    style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 14, alignItems: "center" }}
-                  >
-                    <span className="mono" style={{ color: "var(--ink-muted)", fontSize: 12 }}>
-                      {lt(p, "num", lang)}
-                    </span>
-                    <div>
-                      <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 4 }}>{lt(p, "title", lang)}</div>
-                      <div
-                        style={{
-                          height: 2, background: "var(--line)", borderRadius: 2,
-                          position: "relative", maxWidth: 280,
-                        }}
-                      >
-                        <div
-                          style={{
-                            position: "absolute", inset: 0, width: p.progress + "%",
-                            background: "var(--accent)", borderRadius: 2,
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <span className="mono" style={{ fontSize: 12, color: "var(--accent)" }}>
-                      {p.progress}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={() =>
-                  document.getElementById("priorities")?.scrollIntoView({ behavior: "smooth", block: "start" })
-                }
+            {/* Citizen action CTAs */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 620 }}>
+              {/* Project Bank — primary */}
+              <Link
+                href="/project-bank"
+                className="cta-card cta-card-primary"
                 style={{
-                  marginTop: 18, fontSize: 13, color: "var(--accent)",
-                  display: "flex", alignItems: "center", gap: 8,
+                  display: "flex", alignItems: "center", gap: 20,
+                  border: "1px solid var(--accent)", borderRadius: 14,
+                  background: "var(--accent)", color: "var(--accent-ink)",
+                  padding: "26px 30px", textDecoration: "none",
+                  boxShadow: "0 12px 30px -12px rgba(201,138,31,0.55)",
+                  transition: "transform .15s, box-shadow .15s",
                 }}
               >
-                {lang === "en" ? "See all 6 priorities" : "सबै ६ प्राथमिकता"}{" "}
-                <Icon name="arrow-right" size={14} />
+                <div
+                  style={{
+                    width: 56, height: 56, borderRadius: 14, flexShrink: 0,
+                    background: "rgba(255,255,255,0.18)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  <Icon name="building" size={28} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div
+                    className="mono"
+                    style={{
+                      fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase",
+                      opacity: 0.85, marginBottom: 6,
+                    }}
+                  >
+                    {lang === "en" ? "Lamjung citizens" : "लमजुङका नागरिक"}
+                  </div>
+                  <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
+                    {t(STR.pbButton)}
+                  </div>
+                  <div style={{ fontSize: 14, opacity: 0.9, marginTop: 6, lineHeight: 1.4 }}>
+                    {t(STR.pbButtonSub)}
+                  </div>
+                </div>
+                <Icon name="arrow-right" size={22} />
+              </Link>
+
+              {/* File a grievance — secondary, same layout */}
+              <button
+                onClick={() =>
+                  document.getElementById("grievance")?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
+                className="cta-card cta-card-secondary"
+                style={{
+                  display: "flex", alignItems: "center", gap: 20, width: "100%", textAlign: "left",
+                  border: "1px solid var(--line)", borderRadius: 14,
+                  background: "var(--surface)", color: "var(--ink)",
+                  padding: "26px 30px", cursor: "pointer",
+                  transition: "transform .15s, box-shadow .15s, border-color .15s",
+                }}
+              >
+                <div
+                  style={{
+                    width: 56, height: 56, borderRadius: 14, flexShrink: 0,
+                    background: "rgba(201,138,31,0.12)", color: "var(--accent)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  <Icon name="doc" size={28} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div
+                    className="mono"
+                    style={{
+                      fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase",
+                      color: "var(--ink-muted)", marginBottom: 6,
+                    }}
+                  >
+                    {t(STR.grKicker)}
+                  </div>
+                  <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
+                    {t(STR.heroCTA1)}
+                  </div>
+                  <div style={{ fontSize: 14, color: "var(--ink-dim)", marginTop: 6, lineHeight: 1.4 }}>
+                    {t(STR.grSub)}
+                  </div>
+                  <div
+                    style={{
+                      display: "inline-flex", alignItems: "center", gap: 7, marginTop: 10,
+                      fontSize: 12.5, color: "#5FBA89", fontWeight: 500, lineHeight: 1.35,
+                    }}
+                  >
+                    <span style={{ flexShrink: 0, display: "flex" }}>
+                      <Icon name="shield" size={15} />
+                    </span>
+                    {t(STR.grConfidential)}
+                  </div>
+                </div>
+                <Icon name="arrow-right" size={22} />
               </button>
             </div>
           </div>
@@ -212,8 +254,41 @@ export default function Hero() {
               </div>
             </div>
 
+            {/* social links */}
+            <div style={{ marginTop: 16, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+              <span
+                className="mono"
+                style={{
+                  fontSize: 12, color: "var(--ink-muted)",
+                  letterSpacing: "0.08em", textTransform: "uppercase",
+                }}
+              >
+                {lang === "en" ? "Find us on:" : "हामीलाई यहाँ भेट्नुहोस्:"}
+              </span>
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.id}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  title={s.label}
+                  className="social-btn"
+                  style={{
+                    width: 40, height: 40, borderRadius: 10,
+                    border: "1px solid var(--line)", background: "var(--surface)",
+                    color: "var(--ink-dim)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    transition: "all .15s",
+                  }}
+                >
+                  <SocialIcon name={s.id} size={18} />
+                </a>
+              ))}
+            </div>
+
             {/* stats strip */}
-            <div className="hero-stats" style={{ marginTop: 20, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+            <div className="hero-stats" style={{ marginTop: 16, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
               <StatTile num={total} label={lang === "en" ? "Projects tracked" : "अनुगमित परियोजना"} />
               <StatTile num={ongoing} label={lang === "en" ? "In progress" : "निर्माणाधीन"} accent="var(--accent)" />
               <StatTile num={completed} label={lang === "en" ? "Completed" : "सम्पन्न"} accent="#5FBA89" />

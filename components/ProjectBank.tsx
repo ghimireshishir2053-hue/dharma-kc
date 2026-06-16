@@ -1,13 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { CSSProperties, ReactNode, useState } from "react";
 import { STR, useLang, lt } from "@/lib/i18n";
 import { MUNICIPALITIES } from "@/content/municipalities";
 import { CATEGORIES } from "@/content/categories";
-import { GRIEVANCES_SAMPLE } from "@/content/grievances";
+import { PROJECT_REQUESTS_SAMPLE } from "@/content/projectRequests";
+import type { ProjectRequestPriority } from "@/lib/types";
 import Icon from "./Icon";
 import SectionHead from "./SectionHead";
-import type { Grievance as GrievanceEntry } from "@/lib/types";
 
 function Field({ label, children, style, optional }: { label: ReactNode; children: ReactNode; style?: CSSProperties; optional?: boolean }) {
   const { t } = useLang();
@@ -38,22 +39,27 @@ function Field({ label, children, style, optional }: { label: ReactNode; childre
   );
 }
 
-type TrackResult = GrievanceEntry | { notFound: true } | null;
+const PRIORITY_META: Record<ProjectRequestPriority, { key: string; color: string; bg: string }> = {
+  high:   { key: "pbPrioHigh",   color: "#D94A4A", bg: "rgba(217,74,74,0.12)" },
+  medium: { key: "pbPrioMed",    color: "#E8B14A", bg: "rgba(232,177,74,0.14)" },
+  low:    { key: "pbPrioLow",    color: "#5FBA89", bg: "rgba(95,186,137,0.14)" },
+  review: { key: "pbPrioReview", color: "#6F7E90", bg: "rgba(111,126,144,0.12)" },
+};
 
-export default function Grievance() {
+const emptyForm = { name: "", phone: "", palika: "", ward: "", cat: "", title: "", budget: "", benef: "", org: "", resp: "", msg: "" };
+
+export default function ProjectBank() {
   const { lang, t } = useLang();
-  const [form, setForm] = useState({ name: "", phone: "", palika: "", ward: "", cat: "", msg: "" });
+  const [form, setForm] = useState(emptyForm);
   const [file, setFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState<string | null>(null);
-  const [trackId, setTrackId] = useState("");
-  const [trackResult, setTrackResult] = useState<TrackResult>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await fetch("/api/grievance", {
+      const res = await fetch("/api/project-bank", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         // Attachment is optional; we pass its filename for now (file upload is a future step).
@@ -62,41 +68,36 @@ export default function Grievance() {
       if (res.ok) {
         const data: { id: string } = await res.json();
         setSubmitted(data.id);
-        setForm({ name: "", phone: "", palika: "", ward: "", cat: "", msg: "" });
+        setForm(emptyForm);
         setFile(null);
-        setTimeout(() => setSubmitted(null), 8000);
+        setTimeout(() => setSubmitted(null), 9000);
       }
     } finally {
       setSubmitting(false);
     }
   };
 
-  const track = () => {
-    const found = GRIEVANCES_SAMPLE.find(
-      (g) => g.id.toLowerCase() === trackId.toLowerCase().trim()
-    );
-    setTrackResult(found ?? { notFound: true });
-  };
-
   return (
-    <section
-      id="grievance"
-      className="section"
-      style={{
-        background: "var(--bg-soft)",
-        borderTop: "1px solid var(--line)",
-        borderBottom: "1px solid var(--line)",
-      }}
-    >
+    <section className="section" style={{ background: "var(--bg)", paddingTop: 40 }}>
       <div className="container-x">
+        <Link
+          href="/"
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            color: "var(--ink-muted)", fontSize: 13, marginBottom: 24,
+          }}
+        >
+          ← {lang === "en" ? "Back to site" : "साइटमा फर्कनुहोस्"}
+        </Link>
+
         <SectionHead
-          num="06"
-          kicker={t(STR.grKicker)}
-          title={t(STR.grTitle)}
-          sub={t(STR.grSub)}
+          kicker={t(STR.pbKicker)}
+          title={t(STR.pbTitle)}
+          sub={t(STR.pbSub)}
         />
 
         <div className="r-grid-13">
+          {/* FORM */}
           <div className="card" style={{ padding: 32, position: "relative" }}>
             {submitted ? (
               <div style={{ padding: "40px 20px", textAlign: "center" }}>
@@ -110,31 +111,42 @@ export default function Grievance() {
                 >
                   <Icon name="check" size={26} />
                 </div>
-                <h3 style={{ fontSize: 22, marginBottom: 10 }}>{t(STR.grSuccessTitle)}</h3>
-                <div style={{ color: "var(--ink-dim)", marginBottom: 8 }}>{t(STR.grSuccessSub)}</div>
+                <h3 style={{ fontSize: 22, marginBottom: 10 }}>{t(STR.pbSuccessTitle)}</h3>
+                <div style={{ color: "var(--ink-dim)", marginBottom: 8 }}>{t(STR.pbSuccessSub)}</div>
                 <div
                   className="mono"
                   style={{ fontSize: 22, color: "var(--accent)", marginBottom: 16, letterSpacing: "0.04em" }}
                 >
                   {submitted}
                 </div>
-                <div style={{ color: "var(--ink-muted)", fontSize: 13 }}>{t(STR.grSuccessNote)}</div>
+                <div style={{ color: "var(--ink-muted)", fontSize: 13, maxWidth: 420, margin: "0 auto" }}>
+                  {t(STR.pbSuccessNote)}
+                </div>
               </div>
             ) : (
               <form onSubmit={submit}>
-                <div
-                  style={{
-                    display: "flex", alignItems: "center", gap: 10,
-                    padding: "10px 14px", marginBottom: 20, borderRadius: 8,
-                    background: "rgba(95,186,137,0.10)",
-                    border: "1px solid rgba(95,186,137,0.30)",
-                    color: "var(--ink-dim)", fontSize: 13, lineHeight: 1.4,
-                  }}
-                >
-                  <span style={{ color: "#5FBA89", flexShrink: 0, display: "flex" }}>
-                    <Icon name="shield" size={18} />
-                  </span>
-                  {t(STR.grConfidential)}
+                <Field label={t(STR.pbProjTitle)} style={{ marginBottom: 16 }}>
+                  <input
+                    required
+                    value={form.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                    placeholder={t(STR.pbProjTitlePh)}
+                  />
+                </Field>
+                <div className="r-grid-fields-2" style={{ marginBottom: 16 }}>
+                  <Field label={t(STR.pbOrg)} optional>
+                    <input
+                      value={form.org}
+                      onChange={(e) => setForm({ ...form, org: e.target.value })}
+                    />
+                  </Field>
+                  <Field label={t(STR.pbResp)} optional>
+                    <input
+                      value={form.resp}
+                      onChange={(e) => setForm({ ...form, resp: e.target.value })}
+                      placeholder={t(STR.pbRespPh)}
+                    />
+                  </Field>
                 </div>
                 <div className="r-grid-fields-2">
                   <Field label={t(STR.grName)}>
@@ -177,8 +189,23 @@ export default function Grievance() {
                       onChange={(e) => setForm({ ...form, ward: e.target.value })}
                     />
                   </Field>
+                  <Field label={t(STR.pbBudget)} optional>
+                    <input
+                      value={form.budget}
+                      onChange={(e) => setForm({ ...form, budget: e.target.value })}
+                      placeholder={t(STR.pbBudgetPh)}
+                    />
+                  </Field>
+                  <Field label={t(STR.pbBenef)} optional>
+                    <input
+                      type="number"
+                      min="0"
+                      value={form.benef}
+                      onChange={(e) => setForm({ ...form, benef: e.target.value })}
+                    />
+                  </Field>
                 </div>
-                <Field label={t(STR.grCategory)} style={{ marginBottom: 16 }}>
+                <Field label={t(STR.grCategory)} style={{ marginTop: 16, marginBottom: 16 }}>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                     {CATEGORIES.map((c) => {
                       const active = form.cat === c.id;
@@ -201,17 +228,13 @@ export default function Grievance() {
                     })}
                   </div>
                 </Field>
-                <Field label={t(STR.grMessage)} style={{ marginBottom: 20 }}>
+                <Field label={t(STR.pbDesc)} style={{ marginBottom: 20 }}>
                   <textarea
                     required
-                    rows={4}
+                    rows={5}
                     value={form.msg}
                     onChange={(e) => setForm({ ...form, msg: e.target.value })}
-                    placeholder={
-                      lang === "en"
-                        ? "Describe your issue, location, urgency..."
-                        : "तपाईंको समस्या, स्थान र प्राथमिकता लेख्नुहोस्..."
-                    }
+                    placeholder={t(STR.pbDescPh)}
                   />
                 </Field>
                 <Field label={t(STR.grAttach)} optional style={{ marginBottom: 20 }}>
@@ -253,92 +276,69 @@ export default function Grievance() {
                   </div>
                 </Field>
                 <button type="submit" disabled={submitting} className="btn btn-primary">
-                  {t(STR.grSubmit)} <Icon name="arrow-right" size={14} />
+                  {t(STR.pbSubmit)} <Icon name="arrow-right" size={14} />
                 </button>
               </form>
             )}
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            <div className="card" style={{ padding: 24 }}>
-              <div className="eyebrow" style={{ marginBottom: 14 }}>
-                {t(STR.grTrack)}
-              </div>
-              <div style={{ display: "flex", gap: 8 }}>
-                <input
-                  value={trackId}
-                  onChange={(e) => setTrackId(e.target.value)}
-                  placeholder={t(STR.grTrackPlaceholder)}
-                  style={{ fontFamily: "var(--f-mono)" }}
-                />
-                <button onClick={track} className="btn btn-primary" style={{ flexShrink: 0 }}>
-                  <Icon name="search" size={14} />
-                </button>
-              </div>
-              {trackResult && (
-                <div
-                  style={{
-                    marginTop: 14, padding: 14, background: "var(--bg-soft)",
-                    borderRadius: 8, fontSize: 13,
-                  }}
-                >
-                  {"notFound" in trackResult ? (
-                    <span style={{ color: "var(--ink-muted)" }}>
-                      {lang === "en"
-                        ? "No record found. Try LJ-2082-0418."
-                        : "रेकर्ड फेला परेन। LJ-2082-0418 प्रयास गर्नुहोस्।"}
-                    </span>
-                  ) : (
-                    <>
-                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                        <span className="mono" style={{ color: "var(--accent)" }}>
-                          {trackResult.id}
-                        </span>
-                        <span className={`badge ${trackResult.kind}`}>
-                          {lt(trackResult, "status", lang)}
-                        </span>
-                      </div>
-                      <div>{lt(trackResult, "summary", lang)}</div>
-                    </>
-                  )}
-                </div>
-              )}
+          {/* SUBMITTED PROJECTS */}
+          <div className="card" style={{ padding: 24, alignSelf: "start" }}>
+            <div className="eyebrow" style={{ marginBottom: 8 }}>
+              {t(STR.pbList)}
             </div>
-
-            <div className="card" style={{ padding: 20, flex: 1 }}>
-              <div className="eyebrow" style={{ marginBottom: 14 }}>
-                {t(STR.grRecent)}
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {GRIEVANCES_SAMPLE.map((g) => (
+            <div style={{ color: "var(--ink-muted)", fontSize: 12, marginBottom: 16, lineHeight: 1.5 }}>
+              {t(STR.pbListNote)}
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {PROJECT_REQUESTS_SAMPLE.map((p) => {
+                const cat = CATEGORIES.find((c) => c.id === p.cat);
+                const palika = MUNICIPALITIES.find((m) => m.id === p.palika);
+                const pm = PRIORITY_META[p.priority];
+                return (
                   <div
-                    key={g.id}
+                    key={p.id}
                     style={{
-                      padding: "10px 12px", background: "var(--surface-2)",
-                      borderRadius: 6, fontSize: 13,
+                      padding: "12px 14px", background: "var(--surface-2)",
+                      borderRadius: 8, fontSize: 13,
                     }}
                   >
                     <div
                       style={{
                         display: "flex", justifyContent: "space-between",
-                        alignItems: "center", marginBottom: 4,
+                        alignItems: "center", marginBottom: 6, gap: 8,
                       }}
                     >
-                      <span className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
-                        {g.id}
+                      <span className="mono" style={{ fontSize: 12, color: "var(--ink-muted)" }}>
+                        {p.id}
                       </span>
-                      <span className={`badge ${g.kind}`}>{lt(g, "status", lang)}</span>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: 11, padding: "3px 8px", borderRadius: 999,
+                          color: pm.color, background: pm.bg, letterSpacing: "0.04em",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {t(STR.pbPriority)}: {t(STR[pm.key])}
+                      </span>
                     </div>
-                    <div style={{ color: "var(--ink)" }}>{lt(g, "summary", lang)}</div>
+                    <div style={{ color: "var(--ink)", fontWeight: 500 }}>{lt(p, "title", lang)}</div>
                     <div
                       className="mono"
-                      style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 4 }}
+                      style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 5, display: "flex", flexWrap: "wrap", gap: 8 }}
                     >
-                      {lt(g, "kind", lang)} · {g.days} {lang === "en" ? "days ago" : "दिन अघि"}
+                      <span>{cat ? (lang === "en" ? cat.en : cat.ne) : ""}</span>
+                      <span>·</span>
+                      <span>{palika ? (lang === "en" ? palika.en : palika.ne) : ""}–{p.ward}</span>
+                      <span>·</span>
+                      <span>{lt(p, "budget", lang)}</span>
+                      <span>·</span>
+                      <span>{p.days} {lang === "en" ? "days ago" : "दिन अघि"}</span>
                     </div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>

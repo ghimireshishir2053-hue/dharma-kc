@@ -21,6 +21,12 @@ export const MP_DATA: MP = {
   oathEn: "Poush 12, 2082",
 };
 
+export const SOCIALS: { id: "linkedin" | "facebook" | "tiktok"; label: string; url: string }[] = [
+  { id: "facebook", label: "Facebook", url: "https://www.facebook.com/kcdharma/" },
+  { id: "linkedin", label: "LinkedIn", url: "https://np.linkedin.com/in/kcdharma" },
+  { id: "tiktok",   label: "TikTok",   url: "https://www.tiktok.com/@kcdharma" },
+];
+
 export const CV = {
   accoladesNe: [
     "२० वर्ष अन्तर्राष्ट्रिय अनुभव — जलवायु, ऊर्जा, दिगो विकास",
