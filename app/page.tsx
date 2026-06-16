@@ -6,9 +6,8 @@ import Priorities from "@/components/Priorities";
 import CallForExperts from "@/components/CallForExperts";
 import ProjectTracker from "@/components/ProjectTracker";
 import LamjungMap from "@/components/LamjungMap";
-import Parliament from "@/components/Parliament";
+import Videos from "@/components/Videos";
 import News from "@/components/News";
-import Grievance from "@/components/Grievance";
 import Events from "@/components/Events";
 import Footer from "@/components/Footer";
 
@@ -22,9 +21,8 @@ export default function Page() {
       <CallForExperts />
       <ProjectTracker />
       <LamjungMap />
-      <Parliament />
+      <Videos />
       <News />
-      <Grievance />
       <Events />
       <Footer />
       <AnnouncementModal />

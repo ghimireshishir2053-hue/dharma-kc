@@ -4,12 +4,12 @@ import { ReactNode, useState } from "react";
 import { STR, useLang, lt } from "@/lib/i18n";
 import { MUNICIPALITIES } from "@/content/municipalities";
 import { PROJECTS } from "@/content/projects";
-import { PLACES } from "@/content/places";
 import { CATEGORIES, STATUS } from "@/content/categories";
+import { PLACES } from "@/content/places";
 import type { PalikaId } from "@/lib/types";
 import Icon from "./Icon";
 import SectionHead from "./SectionHead";
-import PlacePhoto from "./PlacePhoto";
+import PlaceImage from "./PlaceImage";
 
 function MuniStat({
   label, value, accent = "var(--ink)",
@@ -37,8 +37,12 @@ export default function LamjungMap() {
   const [active, setActive] = useState<PalikaId>("besisahar");
   const muni = MUNICIPALITIES.find((m) => m.id === active)!;
   const muniProjects = PROJECTS.filter((p) => p.palika === active);
-  const places = PLACES[active] ?? [];
+  const place = PLACES[active];
   const projectCount = (id: PalikaId) => PROJECTS.filter((p) => p.palika === id).length;
+  const shortName = (m: typeof MUNICIPALITIES[number]) =>
+    lang === "en"
+      ? m.en.replace(/ (Municipality|Rural Municipality)/, "")
+      : m.ne.replace(/ (नगरपालिका|गाउँपालिका)/, "");
 
   return (
     <section
@@ -99,139 +103,75 @@ export default function LamjungMap() {
             className="card"
             style={{
               padding: 0, overflow: "hidden", position: "relative",
-              minHeight: 560, background: "linear-gradient(165deg,#F9F3E7 0%,#EFE7D8 100%)",
+              minHeight: 560, background: "#1A1A1A",
             }}
           >
-            <svg viewBox="0 0 600 500" style={{ width: "100%", height: "100%", display: "block" }}>
-              <defs>
-                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth="1" />
-                </pattern>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              <rect width="600" height="500" fill="url(#grid)" />
-
-              <g stroke="rgba(62,125,184,0.4)" strokeWidth="2" fill="none">
-                <path d="M 460 60 Q 430 120 400 200 Q 380 270 350 320 Q 310 360 240 400 Q 160 420 80 440" />
-                <path d="M 420 280 Q 360 300 310 320" />
-                <path d="M 140 260 Q 170 320 200 380" />
-              </g>
-
-              <path
-                d="M 80 440 Q 60 360 90 280 Q 110 210 140 170 Q 180 130 240 110 Q 310 80 370 70 Q 430 60 470 100 Q 500 150 495 220 Q 490 300 470 360 Q 440 420 380 450 Q 300 470 220 465 Q 140 455 80 440 Z"
-                fill="rgba(232,177,74,0.04)"
-                stroke="rgba(232,177,74,0.35)"
-                strokeWidth="1.5"
-              />
-
-              {MUNICIPALITIES.map((m) => {
-                const count = projectCount(m.id);
-                const isActive = active === m.id;
-                return (
-                  <g key={m.id} className="muni" onClick={() => setActive(m.id)}>
-                    <circle
-                      cx={m.x}
-                      cy={m.y}
-                      r={isActive ? 36 : 28}
-                      fill={isActive ? "rgba(232,177,74,0.18)" : "rgba(232,177,74,0.04)"}
-                      stroke={isActive ? "var(--accent)" : "rgba(232,177,74,0.25)"}
-                      strokeWidth={isActive ? 2 : 1}
-                      style={{ filter: isActive ? "url(#glow)" : "none" }}
-                    />
-                    <circle cx={m.x} cy={m.y} r="4" fill={isActive ? "var(--accent)" : "rgba(232,177,74,0.6)"} />
-                    <text
-                      x={m.x}
-                      y={m.y - (isActive ? 46 : 38)}
-                      textAnchor="middle"
-                      fontSize="11"
-                      fill={isActive ? "#1A1A1A" : "rgba(26,26,26,0.65)"}
-                      style={{
-                        fontFamily: lang === "en" ? "Space Grotesk" : "Noto Sans Devanagari",
-                        fontWeight: isActive ? 600 : 400,
-                      }}
-                    >
-                      {lang === "en"
-                        ? m.en.replace(/ (Municipality|Rural Municipality)/, "")
-                        : m.ne.replace(/ (नगरपालिका|गाउँपालिका)/, "")}
-                    </text>
-                    <text
-                      x={m.x}
-                      y={m.y + 4}
-                      textAnchor="middle"
-                      fontSize="10"
-                      fill="rgba(0,0,0,0.7)"
-                      fontWeight="600"
-                      style={{ fontFamily: "JetBrains Mono" }}
-                    >
-                      {count}
-                    </text>
-                    {m.hq && (
-                      <polygon
-                        points={`${m.x - 5},${m.y + 16} ${m.x + 5},${m.y + 16} ${m.x},${m.y + 12}`}
-                        fill="var(--accent)"
-                      />
-                    )}
-                  </g>
-                );
-              })}
-
-              <g transform="translate(540, 40)">
-                <circle r="18" fill="rgba(255,255,255,0.6)" stroke="rgba(0,0,0,0.2)" />
-                <path d="M 0 -10 L 3 0 L 0 8 L -3 0 Z" fill="var(--accent)" />
-                <text y="-22" textAnchor="middle" fontSize="9" fill="rgba(26,26,26,0.6)" style={{ fontFamily: "JetBrains Mono" }}>
-                  N
-                </text>
-              </g>
-
-              <g transform="translate(30, 470)">
-                <line x1="0" y1="0" x2="60" y2="0" stroke="rgba(26,26,26,0.45)" strokeWidth="1" />
-                <line x1="0" y1="-4" x2="0" y2="4" stroke="rgba(26,26,26,0.45)" />
-                <line x1="30" y1="-3" x2="30" y2="3" stroke="rgba(26,26,26,0.45)" />
-                <line x1="60" y1="-4" x2="60" y2="4" stroke="rgba(26,26,26,0.45)" />
-                <text y="-8" fontSize="9" fill="rgba(26,26,26,0.55)" style={{ fontFamily: "JetBrains Mono" }}>
-                  0 — 10 km
-                </text>
-              </g>
-
-              <text
-                x="30"
-                y="40"
-                fontSize="11"
-                fill="rgba(26,26,26,0.5)"
-                style={{ fontFamily: "JetBrains Mono", letterSpacing: "0.1em" }}
-              >
-                LAMJUNG · 28.21°N 84.40°E
-              </text>
-            </svg>
-
+            {/* popular-place photo of the selected municipality */}
+            <PlaceImage src={place.img} label={lt(place, "place", lang)} />
             <div
               style={{
-                position: "absolute", top: 16, right: 16,
-                background: "rgba(255,254,250,0.92)", border: "1px solid var(--line)",
-                borderRadius: 8, padding: "10px 14px", fontSize: 13,
-                fontFamily: "var(--f-mono)", color: "var(--ink-dim)",
+                position: "absolute", inset: 0,
+                background:
+                  "linear-gradient(90deg, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.45) 42%, rgba(0,0,0,0.12) 72%, rgba(0,0,0,0.30) 100%)",
+              }}
+            />
+
+            <div
+              className="mono"
+              style={{
+                position: "absolute", top: 16, left: 20, zIndex: 2,
+                fontSize: 11, letterSpacing: "0.1em", color: "rgba(255,255,255,0.72)",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent)" }} />
-                {lang === "en" ? "Active projects" : "सक्रिय परियोजना"}
+              LAMJUNG · 28.21°N 84.40°E
+            </div>
+
+            {/* clickable municipality names */}
+            <div
+              style={{
+                position: "absolute", top: 50, left: 16, bottom: 112, zIndex: 2,
+                display: "flex", flexDirection: "column", gap: 4, justifyContent: "center",
+              }}
+            >
+              {MUNICIPALITIES.map((m) => {
+                const isActive = active === m.id;
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => setActive(m.id)}
+                    className="muni-pin-btn"
+                    style={{
+                      display: "flex", alignItems: "center", gap: 10,
+                      padding: "8px 14px", borderRadius: 999, width: "fit-content",
+                      background: isActive ? "var(--accent)" : "rgba(0,0,0,0.38)",
+                      color: isActive ? "#fff" : "rgba(255,255,255,0.88)",
+                      border: `1px solid ${isActive ? "var(--accent)" : "rgba(255,255,255,0.28)"}`,
+                      fontSize: 14, fontWeight: isActive ? 600 : 400,
+                      backdropFilter: "blur(2px)", cursor: "pointer", transition: "all .15s",
+                    }}
+                  >
+                    {shortName(m)}
+                    <span className="mono" style={{ fontSize: 11, opacity: 0.85 }}>
+                      {projectCount(m.id)}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* place caption */}
+            <div className="muni-place-caption" style={{ position: "absolute", left: 24, right: 24, bottom: 24, zIndex: 2, color: "#fff" }}>
+              <div
+                className="mono"
+                style={{
+                  fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.72)", marginBottom: 6,
+                }}
+              >
+                {lang === "en" ? "Popular place" : "लोकप्रिय स्थल"} · {shortName(muni)}
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span
-                  style={{
-                    width: 0, height: 0,
-                    borderLeft: "4px solid transparent",
-                    borderRight: "4px solid transparent",
-                    borderBottom: "6px solid var(--accent)",
-                  }}
-                />
-                {lang === "en" ? "District HQ" : "सदरमुकाम"}
+              <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.15 }}>
+                {lt(place, "place", lang)}
               </div>
             </div>
           </div>
@@ -269,54 +209,6 @@ export default function LamjungMap() {
                 </div>
                 <div style={{ fontSize: 14 }}>{lt(muni, "issue", lang)}</div>
               </div>
-
-              {/* Popular places */}
-              <div
-                className="mono"
-                style={{
-                  fontSize: 12, color: "var(--ink-muted)",
-                  letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4,
-                }}
-              >
-                {t(STR.mapPlaces)} · {places.length}
-              </div>
-              <div style={{ fontSize: 12, color: "var(--ink-muted)", marginBottom: 12, lineHeight: 1.4 }}>
-                {t(STR.mapPlacesNote)}
-              </div>
-              {places.length === 0 ? (
-                <div
-                  style={{
-                    padding: 20, textAlign: "center", color: "var(--ink-muted)",
-                    fontSize: 13, border: "1px dashed var(--line)", borderRadius: 8, marginBottom: 20,
-                  }}
-                >
-                  {t(STR.mapPlacesEmpty)}
-                </div>
-              ) : (
-                <div style={{ display: "grid", gap: 16, marginBottom: 20 }}>
-                  {places.map((pl, i) => (
-                    <div key={i}>
-                      <PlacePhoto src={pl.img} alt={lt(pl, "name", lang)} icon={pl.icon} />
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
-                        <h4 style={{ fontSize: 16, fontWeight: 600 }}>{lt(pl, "name", lang)}</h4>
-                        <span
-                          className="mono"
-                          style={{
-                            fontSize: 11, padding: "3px 8px", borderRadius: 999,
-                            background: "var(--surface-2)", color: "var(--ink-muted)",
-                            letterSpacing: "0.04em", textTransform: "uppercase",
-                          }}
-                        >
-                          {lt(pl, "kind", lang)}
-                        </span>
-                      </div>
-                      <p style={{ fontSize: 13, color: "var(--ink-dim)", marginTop: 6, lineHeight: 1.5 }}>
-                        {lt(pl, "desc", lang)}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
 
               <div
                 className="mono"

@@ -85,6 +85,19 @@ export type Priority = {
   tagEn: string;
 };
 
+export type Video = {
+  titleNe: string;
+  titleEn: string;
+  // Platform label shown as a tag, e.g. "YouTube", "Facebook", "TikTok".
+  platform: string;
+  // Full watch URL on the social platform. Empty string = placeholder (not yet linked).
+  url: string;
+  // Optional YouTube video id — used to derive the thumbnail automatically.
+  youtubeId?: string;
+  dateNe: string;
+  dateEn: string;
+};
+
 export type ParliamentItem = {
   type: "bill" | "question" | "committee" | "speech";
   titleNe: string;

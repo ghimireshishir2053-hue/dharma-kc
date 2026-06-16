@@ -127,7 +127,7 @@ export default function Hero() {
                   >
                     {lang === "en" ? "Lamjung citizens" : "लमजुङका नागरिक"}
                   </div>
-                  <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
+                  <div className="cta-title" style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
                     {t(STR.pbButton)}
                   </div>
                   <div style={{ fontSize: 14, opacity: 0.9, marginTop: 6, lineHeight: 1.4 }}>
@@ -138,15 +138,13 @@ export default function Hero() {
               </Link>
 
               {/* File a grievance — secondary, same layout */}
-              <button
-                onClick={() =>
-                  document.getElementById("grievance")?.scrollIntoView({ behavior: "smooth", block: "start" })
-                }
+              <Link
+                href="/grievance"
                 className="cta-card cta-card-secondary"
                 style={{
                   display: "flex", alignItems: "center", gap: 20, width: "100%", textAlign: "left",
                   border: "1px solid var(--line)", borderRadius: 14,
-                  background: "var(--surface)", color: "var(--ink)",
+                  background: "var(--surface)", color: "var(--ink)", textDecoration: "none",
                   padding: "26px 30px", cursor: "pointer",
                   transition: "transform .15s, box-shadow .15s, border-color .15s",
                 }}
@@ -170,7 +168,7 @@ export default function Hero() {
                   >
                     {t(STR.grKicker)}
                   </div>
-                  <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
+                  <div className="cta-title" style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
                     {t(STR.heroCTA1)}
                   </div>
                   <div style={{ fontSize: 14, color: "var(--ink-dim)", marginTop: 6, lineHeight: 1.4 }}>
@@ -189,7 +187,7 @@ export default function Hero() {
                   </div>
                 </div>
                 <Icon name="arrow-right" size={22} />
-              </button>
+              </Link>
             </div>
           </div>
 

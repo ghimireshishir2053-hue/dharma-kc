@@ -60,6 +60,7 @@ export const STR: Record<string, BiString> = {
   navLamjung:     { ne: "लमजुङ",         en: "Lamjung" },
   navSectors:     { ne: "क्षेत्र",        en: "Sectors" },
   navParliament:  { ne: "संसद",          en: "Parliament" },
+  navVideos:      { ne: "भिडियो",        en: "Videos" },
   navNews:        { ne: "समाचार",        en: "News" },
   navGrievance:   { ne: "गुनासो",        en: "Grievance" },
   navEvents:      { ne: "कार्यक्रम",      en: "Events" },
@@ -100,6 +101,12 @@ export const STR: Record<string, BiString> = {
   parlCommittee: { ne: "समिति",    en: "Committee" },
   parlSpeeches:  { ne: "भाषण",     en: "Speeches" },
 
+  videosKicker: { ne: "भाषण र अन्तर्वार्ता",        en: "Talks & interviews" },
+  videosTitle:  { ne: "भिडियो",                     en: "Videos" },
+  videosSub:    { ne: "सांसद धर्मराज के.सी.का सामाजिक सञ्जालमा प्रकाशित भाषण र अन्तर्वार्ता।", en: "Talks and interviews by MP Dharma Raj K.C. published across social media." },
+  videosWatch:  { ne: "हेर्नुहोस्",                  en: "Watch" },
+  videosEmpty:  { ne: "भिडियो छिट्टै थपिनेछन्।",      en: "Videos will be added soon." },
+
   newsKicker: { ne: "समाचार र प्रेस", en: "News & press" },
   newsTitle:  { ne: "भर्खरका अपडेट",  en: "Recent updates" },
   newsAll:    { ne: "सबै हेर्नुहोस्",   en: "View all" },
@@ -126,9 +133,6 @@ export const STR: Record<string, BiString> = {
   grConfidential: { ne: "गुनासो दर्ता गर्ने व्यक्तिको पहिचान गोप्य राखिनेछ।",   en: "The identity of the person filing the grievance will be kept confidential." },
 
   optional:       { ne: "वैकल्पिक",                                           en: "optional" },
-  mapPlaces:      { ne: "लोकप्रिय स्थलहरू",                                    en: "Popular places" },
-  mapPlacesNote:  { ne: "यस पालिकाका उल्लेखनीय स्थल र आकर्षणहरू।",             en: "Notable places and attractions in this palika." },
-  mapPlacesEmpty: { ne: "यस पालिकाका स्थलहरू छिट्टै थपिनेछन्।",                 en: "Places for this palika will be added soon." },
 
   pbButton:       { ne: "परियोजना बैंक",                                      en: "Project Bank" },
   pbButtonSub:    { ne: "आफ्नो ठाउँको परियोजना दर्ता गरी बजेट माग्नुहोस्",     en: "Submit a project from your area & request funding" },

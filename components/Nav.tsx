@@ -21,13 +21,18 @@ export default function Nav() {
     { id: "priorities", s: STR.navPriorities },
     { id: "lamjung",    s: STR.navLamjung },
     { id: "sectors",    s: STR.navSectors },
-    { id: "parliament", s: STR.navParliament },
+    { id: "videos",     s: STR.navVideos },
     { id: "news",       s: STR.navNews },
-    { id: "grievance",  s: STR.navGrievance },
     { id: "events",     s: STR.navEvents },
   ];
 
   const go = (id: string) => {
+    // Grievance lives on its own page now.
+    if (id === "grievance") {
+      window.location.href = "/grievance";
+      setMenuOpen(false);
+      return;
+    }
     const el = document.getElementById(id);
     if (el) {
       window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });

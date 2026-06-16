@@ -21,8 +21,9 @@ function FooterCol({ title, items }: { title: string; items: [BiString, string][
         {items.map(([s, id], i) => (
           <li key={i}>
             <a
-              href={"#" + id}
+              href={id === "grievance" ? "/grievance" : "#" + id}
               onClick={(e) => {
+                if (id === "grievance") return; // navigate to its own page
                 e.preventDefault();
                 const el = document.getElementById(id);
                 if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
@@ -128,7 +129,7 @@ export default function Footer() {
             items={[
               [STR.navPriorities, "priorities"],
               [STR.navSectors, "sectors"],
-              [STR.navParliament, "parliament"],
+              [STR.navVideos, "videos"],
               [STR.navLamjung, "lamjung"],
             ]}
           />
