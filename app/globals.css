@@ -250,8 +250,9 @@ input:focus, textarea:focus, select:focus{border-color:var(--accent);}
   .photo-blue-bg::before,.photo-blue-bg::after,.photo-blue-sheen{animation:none;}
 }
 
-/* gentle clarity pass on the hero portrait (CSS-only enhancement) */
+/* gentle clarity pass + edge fade so the animated blue shows around him */
 .hero-photo{
-  filter:contrast(1.07) saturate(1.10) brightness(1.02);
-  image-rendering:auto;
+  filter:contrast(1.08) saturate(1.12) brightness(1.02);
+  -webkit-mask-image:radial-gradient(78% 88% at 50% 42%, #000 60%, transparent 100%);
+  mask-image:radial-gradient(78% 88% at 50% 42%, #000 60%, transparent 100%);
 }
