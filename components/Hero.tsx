@@ -206,6 +206,7 @@ export default function Hero() {
                 <span className="pill accent">{lang === "en" ? "Elected" : "निर्वाचित"}</span>
               </div>
               <div
+                className="hero-portrait-caption"
                 style={{
                   position: "absolute", bottom: 0, left: 0, right: 0,
                   padding: 24, background: "linear-gradient(to top,rgba(0,0,0,0.85),transparent)", zIndex: 1,
@@ -220,7 +221,7 @@ export default function Hero() {
                 >
                   {lang === "en" ? "Constituency" : "निर्वाचन क्षेत्र"}
                 </div>
-                <div style={{ fontSize: 20, color: "#fff", fontWeight: 500 }}>
+                <div className="hero-district" style={{ fontSize: 20, color: "#fff", fontWeight: 500 }}>
                   {lt(MP_DATA, "district", lang)}
                 </div>
               </div>
