@@ -224,10 +224,34 @@ export default function Hero() {
                   {lt(MP_DATA, "district", lang)}
                 </div>
               </div>
+
+              {/* social icons — mobile only, overlaid on the bottom of the photo */}
+              <div className="hero-social-mobile" style={{ position: "absolute", bottom: 16, right: 16, gap: 8, zIndex: 2 }}>
+                {SOCIALS.map((s) => (
+                  <a
+                    key={s.id}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    title={s.label}
+                    className="social-btn"
+                    style={{
+                      width: 42, height: 42, borderRadius: 11,
+                      background: "rgba(255,255,255,0.95)", color: "var(--ink)",
+                      border: "1px solid rgba(255,255,255,0.7)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+                    }}
+                  >
+                    <SocialIcon name={s.id} size={19} />
+                  </a>
+                ))}
+              </div>
             </div>
 
-            {/* social links */}
-            <div style={{ marginTop: 16, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            {/* social links — desktop row below the photo */}
+            <div className="hero-social-row" style={{ marginTop: 16, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
               <span
                 className="mono"
                 style={{

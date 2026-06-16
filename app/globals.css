@@ -216,3 +216,10 @@ input:focus, textarea:focus, select:focus{border-color:var(--accent);}
   /* hero stats stack on very small screens */
   .hero-stats{grid-template-columns:1fr 1fr !important;}
 }
+
+/* social icons: desktop row vs mobile overlay on photo */
+.hero-social-mobile{display:none;}
+@media (max-width: 768px){
+  .hero-social-row{display:none !important;}
+  .hero-social-mobile{display:flex;}
+}
