@@ -107,7 +107,7 @@ export default function LamjungMap() {
             }}
           >
             {/* popular-place photo of the selected municipality */}
-            <PlaceImage src={place.img} label={lt(place, "place", lang)} />
+            <PlaceImage src={place.primaryImg} label={lang === "en" ? place.primaryEn : place.primaryNe} />
             <div
               style={{
                 position: "absolute", inset: 0,
@@ -168,10 +168,13 @@ export default function LamjungMap() {
                   color: "rgba(255,255,255,0.72)", marginBottom: 6,
                 }}
               >
-                {lang === "en" ? "Popular place" : "लोकप्रिय स्थल"} · {shortName(muni)}
+                {lang === "en" ? "Featured destination" : "मुख्य गन्तव्य"} · {shortName(muni)}
               </div>
-              <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.15 }}>
-                {lt(place, "place", lang)}
+              <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.15, marginBottom: 8 }}>
+                {lang === "en" ? place.primaryEn : place.primaryNe}
+              </div>
+              <div style={{ fontSize: 13, lineHeight: 1.5, opacity: 0.9 }}>
+                {lang === "en" ? place.primaryDescEn : place.primaryDescNe}
               </div>
             </div>
           </div>
@@ -277,6 +280,70 @@ export default function LamjungMap() {
                   })}
                 </div>
               )}
+            </div>
+
+            {/* Tourist Places with Details & Links */}
+            <div className="card" style={{ padding: 24, marginTop: 16 }}>
+              <div
+                className="mono"
+                style={{
+                  fontSize: 12, color: "var(--ink-muted)",
+                  letterSpacing: "0.1em", textTransform: "uppercase",
+                  marginBottom: 16, paddingBottom: 12,
+                  borderBottom: "1px solid var(--line)",
+                }}
+              >
+                {lang === "en" ? "🎯 Top attractions & experiences" : "🎯 शीर्ष आकर्षण र अनुभव"}
+              </div>
+              <div style={{ display: "grid", gap: 12 }}>
+                {place.details.map((detail, idx) => (
+                  <a
+                    key={idx}
+                    href={detail.infoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "grid", gap: 8, padding: "14px", borderRadius: 8,
+                      background: "var(--bg-soft)", border: "1px solid var(--line)",
+                      textDecoration: "none", color: "inherit", transition: "all 0.2s",
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "var(--surface-2)";
+                      e.currentTarget.style.borderColor = "var(--accent)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "var(--bg-soft)";
+                      e.currentTarget.style.borderColor = "var(--line)";
+                    }}
+                  >
+                    <div style={{ display: "flex", gap: 8, alignItems: "start", justifyContent: "space-between" }}>
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 4 }}>
+                          {lang === "en" ? detail.placeEn : detail.placeNe}
+                        </div>
+                        <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.5 }}>
+                          {lang === "en" ? detail.descEn : detail.descNe}
+                        </div>
+                      </div>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: 11, padding: "4px 8px", borderRadius: 4,
+                          background: "var(--accent)18", color: "var(--accent)",
+                          whiteSpace: "nowrap", flexShrink: 0,
+                        }}
+                      >
+                        {lang === "en" ? detail.typeEn : detail.typeNe}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: 11, opacity: 0.6, display: "flex", gap: 4 }}>
+                      <span>🔗</span>
+                      <span>{lang === "en" ? "Learn more" : "थप जानुहोस्"}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
 
             <div className="card" style={{ padding: 16, marginTop: 16 }}>
