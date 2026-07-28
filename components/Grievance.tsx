@@ -4,7 +4,6 @@ import { CSSProperties, ReactNode, useState } from "react";
 import { STR, useLang, lt } from "@/lib/i18n";
 import { MUNICIPALITIES } from "@/content/municipalities";
 import { CATEGORIES } from "@/content/categories";
-import { GRIEVANCES_SAMPLE } from "@/content/grievances";
 import Icon from "./Icon";
 import SectionHead from "./SectionHead";
 import type { Grievance as GrievanceEntry } from "@/lib/types";
@@ -47,6 +46,7 @@ export default function Grievance() {
   const [submitted, setSubmitted] = useState<string | null>(null);
   const [trackId, setTrackId] = useState("");
   const [trackResult, setTrackResult] = useState<TrackResult>(null);
+  const [tracking, setTracking] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
@@ -71,11 +71,22 @@ export default function Grievance() {
     }
   };
 
-  const track = () => {
-    const found = GRIEVANCES_SAMPLE.find(
-      (g) => g.id.toLowerCase() === trackId.toLowerCase().trim()
-    );
-    setTrackResult(found ?? { notFound: true });
+  const track = async () => {
+    const id = trackId.trim();
+    if (!id) return;
+    setTracking(true);
+    try {
+      const res = await fetch(`/api/grievance?id=${encodeURIComponent(id)}`);
+      if (res.ok) {
+        setTrackResult(await res.json());
+      } else {
+        setTrackResult({ notFound: true });
+      }
+    } catch {
+      setTrackResult({ notFound: true });
+    } finally {
+      setTracking(false);
+    }
   };
 
   return (
@@ -93,7 +104,6 @@ export default function Grievance() {
           num="06"
           kicker={t(STR.grKicker)}
           title={t(STR.grTitle)}
-          sub={t(STR.grSub)}
         />
 
         <div className="r-grid-13">
@@ -285,8 +295,8 @@ export default function Grievance() {
                   {"notFound" in trackResult ? (
                     <span style={{ color: "var(--ink-muted)" }}>
                       {lang === "en"
-                        ? "No record found. Try LJ-2082-0418."
-                        : "रेकर्ड फेला परेन। LJ-2082-0418 प्रयास गर्नुहोस्।"}
+                        ? "No record found for this reference ID."
+                        : "यो सन्दर्भ नम्बरको कुनै रेकर्ड फेला परेन।"}
                     </span>
                   ) : (
                     <>
@@ -303,42 +313,6 @@ export default function Grievance() {
                   )}
                 </div>
               )}
-            </div>
-
-            <div className="card" style={{ padding: 20, flex: 1 }}>
-              <div className="eyebrow" style={{ marginBottom: 14 }}>
-                {t(STR.grRecent)}
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {GRIEVANCES_SAMPLE.map((g) => (
-                  <div
-                    key={g.id}
-                    style={{
-                      padding: "10px 12px", background: "var(--surface-2)",
-                      borderRadius: 6, fontSize: 13,
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex", justifyContent: "space-between",
-                        alignItems: "center", marginBottom: 4,
-                      }}
-                    >
-                      <span className="mono" style={{ fontSize: 13, color: "var(--ink-muted)" }}>
-                        {g.id}
-                      </span>
-                      <span className={`badge ${g.kind}`}>{lt(g, "status", lang)}</span>
-                    </div>
-                    <div style={{ color: "var(--ink)" }}>{lt(g, "summary", lang)}</div>
-                    <div
-                      className="mono"
-                      style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 4 }}
-                    >
-                      {lt(g, "kind", lang)} · {g.days} {lang === "en" ? "days ago" : "दिन अघि"}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>

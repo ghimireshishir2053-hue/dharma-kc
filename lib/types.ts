@@ -39,12 +39,6 @@ export type Municipality = {
   pop: string;
   area: string;
   wards: number;
-  projNe: string;
-  projEn: string;
-  issueNe: string;
-  issueEn: string;
-  x: number;
-  y: number;
 };
 
 export type Project = {
@@ -67,7 +61,6 @@ export type Project = {
   updatedEn: string;
   tagsNe: string[];
   tagsEn: string[];
-  img?: string;
 };
 
 export type Priority = {
@@ -86,6 +79,7 @@ export type Priority = {
 };
 
 export type Video = {
+  id: string;
   titleNe: string;
   titleEn: string;
   // Platform label shown as a tag, e.g. "YouTube", "Facebook", "TikTok".
@@ -111,32 +105,18 @@ export type ParliamentItem = {
   statusKind: "ok" | "pending" | "new";
 };
 
-export type NewsItem = {
-  kindNe: string;
-  kindEn: string;
-  titleNe: string;
-  titleEn: string;
-  outletNe: string;
-  outletEn: string;
-  dateNe: string;
-  dateEn: string;
-  imgLabel: string;
-};
-
 export type EventItem = {
-  dayNe: string;
-  dayEn: string;
-  monNe: string;
-  monEn: string;
-  yr: string;
+  id: string;
+  // Canonical AD date (ISO "YYYY-MM-DD") — drives calendar grid placement.
+  date: string;
   titleNe: string;
   titleEn: string;
   timeNe: string;
   timeEn: string;
   locNe: string;
   locEn: string;
-  kindNe: string;
-  kindEn: string;
+  // EventKindId, see content/eventKinds.ts
+  kind: string;
 };
 
 export type Grievance = {
@@ -151,20 +131,41 @@ export type Grievance = {
   kind: "ok" | "pending" | "new";
 };
 
-export type ProjectRequestPriority = "high" | "medium" | "low" | "review";
+export type ProduceId =
+  | "coffee" | "orange" | "ginger" | "vegetable"
+  | "dairy" | "honey" | "cardamom" | "potato" | "maize" | "other";
 
-export type ProjectRequest = {
+export type ProduceType = { id: ProduceId; ne: string; en: string; hue: string; emoji: string };
+
+export type FarmerListing = {
   id: string;
-  cat: CategoryId;
   palika: PalikaId;
   ward: number;
-  titleNe: string;
-  titleEn: string;
-  budgetNe: string;
-  budgetEn: string;
-  priority: ProjectRequestPriority;
+  produce: ProduceId;
+  qtyNe: string;
+  qtyEn: string;
+  priceNe: string;
+  priceEn: string;
+  phone: string;
   days: number;
 };
+
+export type BuyerListing = {
+  id: string;
+  businessNe: string;
+  businessEn: string;
+  cityNe: string;
+  cityEn: string;
+  produce: ProduceId;
+  qtyNe: string;
+  qtyEn: string;
+  phone: string;
+  days: number;
+};
+
+export type CollabInterestId = "invest" | "mentor" | "skill" | "trade" | "tourism" | "other";
+
+export type CollabInterest = { id: CollabInterestId; ne: string; en: string; icon: string };
 
 export type MP = {
   nameNe: string;

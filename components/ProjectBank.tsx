@@ -5,8 +5,6 @@ import { CSSProperties, ReactNode, useState } from "react";
 import { STR, useLang, lt } from "@/lib/i18n";
 import { MUNICIPALITIES } from "@/content/municipalities";
 import { CATEGORIES } from "@/content/categories";
-import { PROJECT_REQUESTS_SAMPLE } from "@/content/projectRequests";
-import type { ProjectRequestPriority } from "@/lib/types";
 import Icon from "./Icon";
 import SectionHead from "./SectionHead";
 
@@ -38,13 +36,6 @@ function Field({ label, children, style, optional }: { label: ReactNode; childre
     </label>
   );
 }
-
-const PRIORITY_META: Record<ProjectRequestPriority, { key: string; color: string; bg: string }> = {
-  high:   { key: "pbPrioHigh",   color: "#D94A4A", bg: "rgba(217,74,74,0.12)" },
-  medium: { key: "pbPrioMed",    color: "#E8B14A", bg: "rgba(232,177,74,0.14)" },
-  low:    { key: "pbPrioLow",    color: "#5FBA89", bg: "rgba(95,186,137,0.14)" },
-  review: { key: "pbPrioReview", color: "#6F7E90", bg: "rgba(111,126,144,0.12)" },
-};
 
 const emptyForm = { name: "", phone: "", palika: "", ward: "", cat: "", title: "", budget: "", benef: "", org: "", resp: "", msg: "" };
 
@@ -96,7 +87,7 @@ export default function ProjectBank() {
           sub={t(STR.pbSub)}
         />
 
-        <div className="r-grid-13">
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
           {/* FORM */}
           <div className="card" style={{ padding: 32, position: "relative" }}>
             {submitted ? (
@@ -280,66 +271,6 @@ export default function ProjectBank() {
                 </button>
               </form>
             )}
-          </div>
-
-          {/* SUBMITTED PROJECTS */}
-          <div className="card" style={{ padding: 24, alignSelf: "start" }}>
-            <div className="eyebrow" style={{ marginBottom: 8 }}>
-              {t(STR.pbList)}
-            </div>
-            <div style={{ color: "var(--ink-muted)", fontSize: 12, marginBottom: 16, lineHeight: 1.5 }}>
-              {t(STR.pbListNote)}
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {PROJECT_REQUESTS_SAMPLE.map((p) => {
-                const cat = CATEGORIES.find((c) => c.id === p.cat);
-                const palika = MUNICIPALITIES.find((m) => m.id === p.palika);
-                const pm = PRIORITY_META[p.priority];
-                return (
-                  <div
-                    key={p.id}
-                    style={{
-                      padding: "12px 14px", background: "var(--surface-2)",
-                      borderRadius: 8, fontSize: 13,
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex", justifyContent: "space-between",
-                        alignItems: "center", marginBottom: 6, gap: 8,
-                      }}
-                    >
-                      <span className="mono" style={{ fontSize: 12, color: "var(--ink-muted)" }}>
-                        {p.id}
-                      </span>
-                      <span
-                        className="mono"
-                        style={{
-                          fontSize: 11, padding: "3px 8px", borderRadius: 999,
-                          color: pm.color, background: pm.bg, letterSpacing: "0.04em",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {t(STR.pbPriority)}: {t(STR[pm.key])}
-                      </span>
-                    </div>
-                    <div style={{ color: "var(--ink)", fontWeight: 500 }}>{lt(p, "title", lang)}</div>
-                    <div
-                      className="mono"
-                      style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 5, display: "flex", flexWrap: "wrap", gap: 8 }}
-                    >
-                      <span>{cat ? (lang === "en" ? cat.en : cat.ne) : ""}</span>
-                      <span>·</span>
-                      <span>{palika ? (lang === "en" ? palika.en : palika.ne) : ""}–{p.ward}</span>
-                      <span>·</span>
-                      <span>{lt(p, "budget", lang)}</span>
-                      <span>·</span>
-                      <span>{p.days} {lang === "en" ? "days ago" : "दिन अघि"}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
       </div>

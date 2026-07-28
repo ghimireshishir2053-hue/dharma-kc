@@ -8,6 +8,7 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
+import MobileTabBar from "@/components/MobileTabBar";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -69,6 +70,7 @@ export default function RootLayout({
       <body>
         <LangProvider>
           <div className="page">{children}</div>
+          <MobileTabBar />
         </LangProvider>
       </body>
     </html>

@@ -1,0 +1,229 @@
+// Krishi Bank persistence — farmer listings, buyer registrations, and a
+// notification audit log. Requires a real Postgres DATABASE_URL to run;
+// see .env.example.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProduceId {
+  coffee
+  orange
+  ginger
+  vegetable
+  dairy
+  honey
+  cardamom
+  potato
+  maize
+  other
+}
+
+model FarmerListing {
+  id            String          @id @default(cuid())
+  refId         String          @unique
+  name          String
+  phone         String
+  palika        String
+  ward          Int
+  produce       ProduceId
+  otherProduce  String?
+  qty           String
+  price         String?
+  createdAt     DateTime        @default(now())
+  notifications Notification[]
+}
+
+// A buyer "registers" simply by submitting the Krishi Bank buyer form —
+// that registration is what future matching farmer listings notify.
+model BuyerRegistration {
+  id            String          @id @default(cuid())
+  refId         String          @unique
+  business      String
+  phone         String
+  city          String
+  produce       ProduceId
+  otherProduce  String?
+  qty           String
+  createdAt     DateTime        @default(now())
+  notifications Notification[]
+}
+
+model Notification {
+  id              String            @id @default(cuid())
+  farmerListingId String
+  farmerListing   FarmerListing     @relation(fields: [farmerListingId], references: [id])
+  buyerId         String
+  buyer           BuyerRegistration @relation(fields: [buyerId], references: [id])
+  status          String // "sent" | "failed"
+  detail          String?
+  createdAt       DateTime          @default(now())
+}
+
+// Project Tracker ("Sectors" section on the homepage) — admin-entered only.
+// cat/palika/status are plain strings validated at the API layer against
+// content/categories.ts + content/municipalities.ts, matching the existing
+// FarmerListing.palika convention rather than duplicating those taxonomies
+// as Prisma enums.
+model Project {
+  id        String   @id @default(cuid())
+  refId     String   @unique
+  cat       String
+  palika    String
+  titleNe   String
+  titleEn   String
+  status    String
+  progress  Int?
+  budgetNe  String
+  budgetEn  String
+  startNe   String
+  startEn   String
+  etaNe     String
+  etaEn     String
+  updateNe  String
+  updateEn  String
+  tagsNe    String[]
+  tagsEn    String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// --- Citizen intake forms: real persistence + admin review queues ---
+
+enum GrievanceStatus {
+  new
+  in_progress
+  resolved
+}
+
+model Grievance {
+  id         String          @id @default(cuid())
+  refId      String          @unique
+  name       String
+  phone      String
+  palika     String
+  ward       Int
+  category   String
+  message    String
+  attachment String?
+  status     GrievanceStatus @default(new)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+enum ProjectRequestStatus {
+  new
+  under_review
+  approved
+  rejected
+}
+
+model ProjectRequest {
+  id            String               @id @default(cuid())
+  refId         String               @unique
+  name          String
+  phone         String
+  palika        String
+  ward          Int
+  category      String
+  title         String
+  budget        String?
+  beneficiaries Int?
+  org           String?
+  responsible   String?
+  message       String
+  attachment    String?
+  status        ProjectRequestStatus @default(new)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+}
+
+enum DiasporaReviewStatus {
+  new
+  contacted
+  archived
+}
+
+model DiasporaMember {
+  id        String               @id @default(cuid())
+  refId     String               @unique
+  name      String
+  phone     String
+  sector    String
+  country   String
+  palika    String
+  interest  String
+  message   String?
+  cv        String?
+  status    DiasporaReviewStatus @default(new)
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+}
+
+// --- Public content, admin-managed ---
+
+// Program calendar (/calendar) — admin-entered only, same "nothing shows
+// until an admin adds it" convention as Project.
+model Event {
+  id        String   @id @default(cuid())
+  refId     String   @unique
+  date      String // ISO "YYYY-MM-DD" — drives BS calendar placement
+  titleNe   String
+  titleEn   String
+  timeNe    String
+  timeEn    String
+  locNe     String
+  locEn     String
+  kind      String // EventKindId, see content/eventKinds.ts
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// One row per palika (fixed set of 8, see content/municipalities.ts) — the
+// featured destination shown on the Lamjung map. Population/area/wards stay
+// in content/municipalities.ts as hand-verified census data, not admin-editable.
+model PalikaProfile {
+  id            String       @id @default(cuid())
+  palika        String       @unique
+  primaryNe     String
+  primaryEn     String
+  primaryDescNe String
+  primaryDescEn String
+  primaryImg    String?
+  updatedAt     DateTime     @updatedAt
+  attractions   Attraction[]
+}
+
+model Attraction {
+  id              String        @id @default(cuid())
+  palikaProfileId String
+  palikaProfile   PalikaProfile @relation(fields: [palikaProfileId], references: [id], onDelete: Cascade)
+  placeNe         String
+  placeEn         String
+  descNe          String
+  descEn          String
+  typeNe          String
+  typeEn          String
+  infoLink        String
+  img             String?
+  createdAt       DateTime      @default(now())
+}
+
+model Video {
+  id        String   @id @default(cuid())
+  refId     String   @unique
+  titleNe   String
+  titleEn   String
+  platform  String
+  url       String
+  youtubeId String?
+  dateNe    String
+  dateEn    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

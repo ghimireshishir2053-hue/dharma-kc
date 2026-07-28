@@ -18,18 +18,20 @@ export default function Nav() {
   }, []);
 
   const items = [
-    { id: "priorities", s: STR.navPriorities },
     { id: "lamjung",    s: STR.navLamjung },
     { id: "sectors",    s: STR.navSectors },
     { id: "videos",     s: STR.navVideos },
-    { id: "news",       s: STR.navNews },
-    { id: "events",     s: STR.navEvents },
   ];
 
   const go = (id: string) => {
-    // Grievance lives on its own page now.
+    // Grievance and Calendar live on their own pages.
     if (id === "grievance") {
       window.location.href = "/grievance";
+      setMenuOpen(false);
+      return;
+    }
+    if (id === "calendar") {
+      window.location.href = "/calendar";
       setMenuOpen(false);
       return;
     }
@@ -127,13 +129,36 @@ export default function Nav() {
               EN
             </button>
           </div>
+          <button
+            onClick={() => go("calendar")}
+            className="btn"
+            style={{
+              padding: "8px 16px", fontSize: 13, fontWeight: 600,
+              borderRadius: 999, background: "var(--terracotta)", color: "#fff",
+            }}
+          >
+            <Icon name="calendar" size={15} />
+            {t(STR.navCalendar)}
+          </button>
           <button onClick={() => go("grievance")} className="btn btn-primary" style={{ padding: "8px 14px", fontSize: 13 }}>
             {t(STR.heroCTA1)}
           </button>
         </div>
 
-        {/* Mobile: lang toggle + hamburger */}
+        {/* Mobile: calendar shortcut + lang toggle + hamburger */}
         <div className="mobile-only" style={{ alignItems: "center", gap: 8 }}>
+          <button
+            aria-label={t(STR.navCalendar)}
+            onClick={() => go("calendar")}
+            style={{
+              width: 40, height: 40, borderRadius: 8,
+              background: "var(--terracotta)", color: "#fff",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <Icon name="calendar" size={18} />
+          </button>
           <div
             style={{
               display: "flex", border: "1px solid var(--line)", borderRadius: 8,

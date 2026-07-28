@@ -84,7 +84,7 @@ export default function ApplyEmbed() {
             <div
               style={{
                 width: 56, height: 56, borderRadius: "50%",
-                background: "rgba(201,138,31,0.14)", color: "var(--accent)",
+                background: "rgba(0,148,218,0.14)", color: "var(--accent)",
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 marginBottom: 20,
               }}

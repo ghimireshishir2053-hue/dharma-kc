@@ -5,6 +5,14 @@ import { MP_DATA, CV, SOCIALS } from "@/content/mp";
 import Icon from "./Icon";
 import SocialIcon from "./SocialIcon";
 
+// Sections that live on their own route rather than as a homepage anchor.
+const OWN_PAGES: Record<string, string> = {
+  grievance: "/grievance",
+  calendar: "/calendar",
+  "krishi-bank": "/krishi-bank",
+  diaspora: "/diaspora",
+};
+
 function FooterCol({ title, items }: { title: string; items: [BiString, string][] }) {
   const { t } = useLang();
   return (
@@ -21,9 +29,9 @@ function FooterCol({ title, items }: { title: string; items: [BiString, string][
         {items.map(([s, id], i) => (
           <li key={i}>
             <a
-              href={id === "grievance" ? "/grievance" : "#" + id}
+              href={OWN_PAGES[id] ?? "#" + id}
               onClick={(e) => {
-                if (id === "grievance") return; // navigate to its own page
+                if (OWN_PAGES[id]) return; // navigate to its own page
                 e.preventDefault();
                 const el = document.getElementById(id);
                 if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: "smooth" });
@@ -127,10 +135,10 @@ export default function Footer() {
           <FooterCol
             title={lang === "en" ? "Work" : "कार्य"}
             items={[
-              [STR.navPriorities, "priorities"],
               [STR.navSectors, "sectors"],
               [STR.navVideos, "videos"],
               [STR.navLamjung, "lamjung"],
+              [STR.navKrishiBank, "krishi-bank"],
             ]}
           />
 
@@ -138,8 +146,8 @@ export default function Footer() {
             title={lang === "en" ? "Citizen" : "नागरिक"}
             items={[
               [STR.navGrievance, "grievance"],
-              [STR.navEvents, "events"],
-              [STR.navNews, "news"],
+              [STR.navCalendar, "calendar"],
+              [STR.navDiaspora, "diaspora"],
             ]}
           />
 

@@ -8,7 +8,7 @@ export default function PlaceImage({ src, label }: { src: string; label: string 
   // Reset error state when the source changes (switching municipalities).
   useEffect(() => setErr(false), [src]);
 
-  if (err) {
+  if (err || !src) {
     return (
       <div
         className="ph"

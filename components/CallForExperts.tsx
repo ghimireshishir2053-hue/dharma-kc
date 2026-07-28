@@ -107,7 +107,7 @@ export default function CallForExperts() {
                       width: 28,
                       height: 28,
                       borderRadius: 6,
-                      background: "rgba(201,138,31,0.14)",
+                      background: "rgba(0,148,218,0.14)",
                       color: "var(--accent)",
                       display: "flex",
                       alignItems: "center",
@@ -252,8 +252,8 @@ export default function CallForExperts() {
             className="card"
             style={{
               padding: 28,
-              background: "linear-gradient(160deg, rgba(201,138,31,0.08) 0%, var(--surface) 60%)",
-              borderColor: "rgba(201,138,31,0.35)",
+              background: "linear-gradient(160deg, rgba(0,148,218,0.08) 0%, var(--surface) 60%)",
+              borderColor: "rgba(0,148,218,0.35)",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",

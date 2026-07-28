@@ -4,49 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { STR, useLang, lt } from "@/lib/i18n";
 import { MP_DATA, SOCIALS } from "@/content/mp";
-import { PROJECTS } from "@/content/projects";
 import Icon from "./Icon";
 import SocialIcon from "./SocialIcon";
 
-function StatTile({ num, label, accent = "var(--ink)" }: { num: number | string; label: string; accent?: string }) {
-  return (
-    <div style={{ padding: 16, border: "1px solid var(--line)", borderRadius: 10, background: "var(--surface)" }}>
-      <div className="mono" style={{ fontSize: 32, fontWeight: 500, color: accent, lineHeight: 1 }}>
-        {num}
-      </div>
-      <div
-        style={{
-          fontSize: 13, color: "var(--ink-muted)", marginTop: 8,
-          textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--f-mono)",
-        }}
-      >
-        {label}
-      </div>
-    </div>
-  );
-}
-
 export default function Hero() {
   const { lang, t } = useLang();
-  const ongoing = PROJECTS.filter((p) => p.status === "ongoing").length;
-  const completed = PROJECTS.filter((p) => p.status === "completed").length;
-  const total = PROJECTS.length;
 
   return (
     <section
       id="top"
-      className="techgrid"
       style={{ position: "relative", overflow: "hidden", paddingTop: 24, paddingBottom: 96 }}
     >
       <div className="container-x hero-inner" style={{ paddingTop: 56, paddingBottom: 40, position: "relative" }}>
         <div className="r-grid-hero">
           {/* LEFT */}
           <div>
-            <div className="eyebrow" style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 14 }}>
-              <span className="dot" />
-              {t(STR.heroKicker)}
-            </div>
-
             <h1
               className="hero-name"
               style={{
@@ -78,7 +50,7 @@ export default function Hero() {
                   border: "1px solid var(--accent)", borderRadius: 14,
                   background: "var(--accent)", color: "var(--accent-ink)",
                   padding: "26px 30px", textDecoration: "none",
-                  boxShadow: "0 12px 30px -12px rgba(201,138,31,0.55)",
+                  boxShadow: "0 12px 30px -12px rgba(0,148,218,0.45)",
                   transition: "transform .15s, box-shadow .15s",
                 }}
               >
@@ -126,7 +98,7 @@ export default function Hero() {
                 <div
                   style={{
                     width: 56, height: 56, borderRadius: 14, flexShrink: 0,
-                    background: "rgba(201,138,31,0.12)", color: "var(--accent)",
+                    background: "rgba(0,148,218,0.12)", color: "var(--accent)",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}
                 >
@@ -145,9 +117,6 @@ export default function Hero() {
                   <div className="cta-title" style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
                     {t(STR.heroCTA1)}
                   </div>
-                  <div style={{ fontSize: 14, color: "var(--ink-dim)", marginTop: 6, lineHeight: 1.4 }}>
-                    {t(STR.grSub)}
-                  </div>
                   <div
                     style={{
                       display: "inline-flex", alignItems: "center", gap: 7, marginTop: 10,
@@ -162,6 +131,88 @@ export default function Hero() {
                 </div>
                 <Icon name="arrow-right" size={22} />
               </Link>
+
+              {/* Krishi Bank */}
+              <Link
+                href="/krishi-bank"
+                className="cta-card cta-card-secondary"
+                style={{
+                  display: "flex", alignItems: "center", gap: 20, width: "100%", textAlign: "left",
+                  border: "1px solid var(--line)", borderRadius: 14,
+                  background: "var(--surface)", color: "var(--ink)", textDecoration: "none",
+                  padding: "26px 30px", cursor: "pointer",
+                  transition: "transform .15s, box-shadow .15s, border-color .15s",
+                }}
+              >
+                <div
+                  style={{
+                    width: 56, height: 56, borderRadius: 14, flexShrink: 0,
+                    background: "rgba(47,125,107,0.12)", color: "var(--evergreen)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  <Icon name="sprout" size={28} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div
+                    className="mono"
+                    style={{
+                      fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase",
+                      color: "var(--ink-muted)", marginBottom: 6,
+                    }}
+                  >
+                    {t(STR.kbKicker)}
+                  </div>
+                  <div className="cta-title" style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
+                    {t(STR.kbButton)}
+                  </div>
+                  <div style={{ fontSize: 14, color: "var(--ink-dim)", marginTop: 6, lineHeight: 1.4 }}>
+                    {t(STR.kbButtonSub)}
+                  </div>
+                </div>
+                <Icon name="arrow-right" size={22} />
+              </Link>
+
+              {/* Diaspora Lamjung */}
+              <Link
+                href="/diaspora"
+                className="cta-card cta-card-secondary"
+                style={{
+                  display: "flex", alignItems: "center", gap: 20, width: "100%", textAlign: "left",
+                  border: "1px solid var(--line)", borderRadius: 14,
+                  background: "var(--surface)", color: "var(--ink)", textDecoration: "none",
+                  padding: "26px 30px", cursor: "pointer",
+                  transition: "transform .15s, box-shadow .15s, border-color .15s",
+                }}
+              >
+                <div
+                  style={{
+                    width: 56, height: 56, borderRadius: 14, flexShrink: 0,
+                    background: "rgba(62,125,184,0.12)", color: "var(--river)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  <Icon name="globe" size={28} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div
+                    className="mono"
+                    style={{
+                      fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase",
+                      color: "var(--ink-muted)", marginBottom: 6,
+                    }}
+                  >
+                    {t(STR.dlKicker)}
+                  </div>
+                  <div className="cta-title" style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.1 }}>
+                    {t(STR.dlButton)}
+                  </div>
+                  <div style={{ fontSize: 14, color: "var(--ink-dim)", marginTop: 6, lineHeight: 1.4 }}>
+                    {t(STR.dlButtonSub)}
+                  </div>
+                </div>
+                <Icon name="arrow-right" size={22} />
+              </Link>
             </div>
           </div>
 
@@ -172,7 +223,7 @@ export default function Hero() {
               style={{
                 position: "relative", aspectRatio: "4 / 5", borderRadius: 12, overflow: "hidden",
                 border: "1px solid var(--line)",
-                background: "linear-gradient(165deg,#EFE7D8 0%, #F5EFE5 60%, #F2D9A0 100%)",
+                background: "linear-gradient(165deg,#E8F2FA 0%, #F7F9FB 60%, #CFE6F7 100%)",
               }}
             >
               {/* animated blue background (within the photo frame) */}
@@ -217,17 +268,8 @@ export default function Hero() {
                   padding: 24, background: "linear-gradient(to top,rgba(0,0,0,0.85),transparent)", zIndex: 1,
                 }}
               >
-                <div
-                  className="mono"
-                  style={{
-                    fontSize: 12, color: "rgba(255,255,255,0.6)", letterSpacing: "0.12em",
-                    textTransform: "uppercase", marginBottom: 6,
-                  }}
-                >
-                  {lang === "en" ? "Constituency" : "निर्वाचन क्षेत्र"}
-                </div>
                 <div className="hero-district" style={{ fontSize: 20, color: "#fff", fontWeight: 500 }}>
-                  {lt(MP_DATA, "district", lang)}
+                  {t(STR.heroKicker)}
                 </div>
               </div>
 
@@ -287,13 +329,6 @@ export default function Hero() {
                   <SocialIcon name={s.id} size={18} />
                 </a>
               ))}
-            </div>
-
-            {/* stats strip */}
-            <div className="hero-stats" style={{ marginTop: 16, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
-              <StatTile num={total} label={lang === "en" ? "Projects tracked" : "अनुगमित परियोजना"} />
-              <StatTile num={ongoing} label={lang === "en" ? "In progress" : "निर्माणाधीन"} accent="var(--accent)" />
-              <StatTile num={completed} label={lang === "en" ? "Completed" : "सम्पन्न"} accent="#5FBA89" />
             </div>
           </div>
         </div>

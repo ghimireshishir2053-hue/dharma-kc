@@ -4,7 +4,7 @@ import {
   Sprout, Mountain, Zap, Route, Droplet, ArrowRight, ArrowUpRight,
   Menu, Search, Check, X, Clock, MapPin, Mail, Phone, FileText,
   Mic, Users, Calendar, Building2, Globe, Sun, Moon, MoreHorizontal,
-  ShieldCheck, Play,
+  ShieldCheck, Play, ChevronLeft, ChevronRight,
   type LucideIcon,
 } from "lucide-react";
 
@@ -35,6 +35,8 @@ const MAP: Record<string, LucideIcon> = {
   more: MoreHorizontal,
   shield: ShieldCheck,
   play: Play,
+  "chevron-left": ChevronLeft,
+  "chevron-right": ChevronRight,
 };
 
 export default function Icon({

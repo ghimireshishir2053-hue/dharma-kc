@@ -99,7 +99,7 @@ export default function AnnouncementModal() {
         <div
           style={{
             height: 4,
-            background: "linear-gradient(90deg, #E8B14A 0%, #C98A1F 50%, #E8B14A 100%)",
+            background: "linear-gradient(90deg, #2CA8E0 0%, #0094DA 50%, #2CA8E0 100%)",
             borderTopLeftRadius: 16,
             borderTopRightRadius: 16,
           }}
@@ -160,7 +160,7 @@ export default function AnnouncementModal() {
               color: "var(--accent)", marginBottom: 14,
             }}
           >
-            {lang === "en" ? "Lamjung Development Initiative" : "लमजुङ विकास पहल"}
+            {lang === "en" ? "" : "लमजुङ विकास पहल"}
           </div>
 
           <p style={{ color: "var(--ink-dim)", fontSize: 14, lineHeight: 1.6, marginBottom: 20 }}>

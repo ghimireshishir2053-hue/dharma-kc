@@ -3,6 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+const ERROR_MESSAGES: Record<string, string> = {
+  server_not_configured: "Admin login isn't configured on this server yet.",
+  invalid_credentials: "Incorrect username or password.",
+  missing_fields: "Enter both a username and password.",
+};
+
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -25,10 +31,9 @@ export default function AdminLogin() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Login failed");
+        throw new Error(ERROR_MESSAGES[data.error] || "Login failed");
       }
 
-      // Store token in localStorage
       localStorage.setItem("admin_token", data.token);
       router.push("/admin/dashboard");
     } catch (err) {
@@ -45,7 +50,7 @@ export default function AdminLogin() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "#F3F6F9",
         fontFamily: "system-ui, sans-serif",
       }}
     >
@@ -53,19 +58,25 @@ export default function AdminLogin() {
         style={{
           background: "white",
           padding: "40px",
-          borderRadius: "12px",
-          boxShadow: "0 10px 40px rgba(0,0,0,0.2)",
+          borderRadius: "14px",
+          border: "1px solid #E1E7EC",
+          boxShadow: "0 12px 32px -16px rgba(11,15,20,0.18)",
           width: "100%",
-          maxWidth: "400px",
+          maxWidth: "380px",
         }}
       >
-        <h1 style={{ fontSize: "28px", marginBottom: "30px", textAlign: "center", color: "#333" }}>
-          Admin Portal
-        </h1>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: "28px" }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: "#0094DA", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 18 }}>
+            ध
+          </div>
+          <h1 style={{ fontSize: "20px", textAlign: "center", color: "#14181D", margin: 0, fontWeight: 600 }}>
+            Admin Portal
+          </h1>
+        </div>
 
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "8px", fontSize: "14px", fontWeight: 600, color: "#333" }}>
+          <div style={{ marginBottom: "18px" }}>
+            <label style={{ display: "block", marginBottom: "8px", fontSize: "13px", fontWeight: 600, color: "#14181D" }}>
               Username
             </label>
             <input
@@ -73,20 +84,20 @@ export default function AdminLogin() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               disabled={loading}
+              autoComplete="username"
               style={{
                 width: "100%",
-                padding: "12px",
-                border: "1px solid #ddd",
-                borderRadius: "6px",
+                padding: "11px 12px",
+                border: "1px solid #E1E7EC",
+                borderRadius: "8px",
                 fontSize: "14px",
                 boxSizing: "border-box",
               }}
-              placeholder="Enter username"
             />
           </div>
 
           <div style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "8px", fontSize: "14px", fontWeight: 600, color: "#333" }}>
+            <label style={{ display: "block", marginBottom: "8px", fontSize: "13px", fontWeight: 600, color: "#14181D" }}>
               Password
             </label>
             <input
@@ -94,20 +105,20 @@ export default function AdminLogin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
+              autoComplete="current-password"
               style={{
                 width: "100%",
-                padding: "12px",
-                border: "1px solid #ddd",
-                borderRadius: "6px",
+                padding: "11px 12px",
+                border: "1px solid #E1E7EC",
+                borderRadius: "8px",
                 fontSize: "14px",
                 boxSizing: "border-box",
               }}
-              placeholder="Enter password"
             />
           </div>
 
           {error && (
-            <div style={{ marginBottom: "20px", padding: "12px", background: "#fee", border: "1px solid #fcc", borderRadius: "6px", color: "#c33", fontSize: "14px" }}>
+            <div style={{ marginBottom: "18px", padding: "11px 14px", background: "#FDEEEE", border: "1px solid #F5C6C6", borderRadius: "8px", color: "#B23A3A", fontSize: "13px" }}>
               {error}
             </div>
           )}
@@ -118,23 +129,18 @@ export default function AdminLogin() {
             style={{
               width: "100%",
               padding: "12px",
-              background: loading ? "#999" : "#667eea",
+              background: loading ? "#9AA3AC" : "#0094DA",
               color: "white",
               border: "none",
-              borderRadius: "6px",
-              fontSize: "16px",
+              borderRadius: "8px",
+              fontSize: "14.5px",
               fontWeight: 600,
               cursor: loading ? "not-allowed" : "pointer",
-              transition: "background 0.2s",
             }}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Logging in…" : "Log in"}
           </button>
         </form>
-
-        <p style={{ marginTop: "20px", fontSize: "12px", color: "#666", textAlign: "center" }}>
-          Default: admin / admin123
-        </p>
       </div>
     </div>
   );

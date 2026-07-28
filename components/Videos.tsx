@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { STR, useLang, lt } from "@/lib/i18n";
-import { VIDEOS } from "@/content/videos";
 import type { Video } from "@/lib/types";
 import Icon from "./Icon";
 import SectionHead from "./SectionHead";
@@ -101,6 +100,14 @@ function VideoCard({ v, watch }: { v: Video; watch: string }) {
 
 export default function Videos() {
   const { t } = useLang();
+  const [videos, setVideos] = useState<Video[]>([]);
+
+  useEffect(() => {
+    fetch("/api/videos")
+      .then((res) => res.json())
+      .then((data) => setVideos(Array.isArray(data) ? data : []))
+      .catch(() => setVideos([]));
+  }, []);
 
   return (
     <section
@@ -120,7 +127,7 @@ export default function Videos() {
           sub={t(STR.videosSub)}
         />
 
-        {VIDEOS.length === 0 ? (
+        {videos.length === 0 ? (
           <div
             style={{
               padding: 40, textAlign: "center", color: "var(--ink-muted)",
@@ -137,8 +144,8 @@ export default function Videos() {
               gap: 20,
             }}
           >
-            {VIDEOS.map((v, i) => (
-              <VideoCard key={i} v={v} watch={t(STR.videosWatch)} />
+            {videos.map((v) => (
+              <VideoCard key={v.id} v={v} watch={t(STR.videosWatch)} />
             ))}
           </div>
         )}

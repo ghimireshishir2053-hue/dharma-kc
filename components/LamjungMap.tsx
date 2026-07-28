@@ -1,15 +1,21 @@
 "use client";
 
-import { ReactNode, useState } from "react";
-import { STR, useLang, lt } from "@/lib/i18n";
+import { ReactNode, useEffect, useState } from "react";
+import { STR, useLang } from "@/lib/i18n";
 import { MUNICIPALITIES } from "@/content/municipalities";
-import { PROJECTS } from "@/content/projects";
-import { CATEGORIES, STATUS } from "@/content/categories";
-import { PLACES } from "@/content/places";
-import type { PalikaId } from "@/lib/types";
-import Icon from "./Icon";
+import type { PalikaId, Project } from "@/lib/types";
 import SectionHead from "./SectionHead";
 import PlaceImage from "./PlaceImage";
+
+type PlaceDetail = {
+  placeNe: string; placeEn: string; descNe: string; descEn: string;
+  typeNe: string; typeEn: string; infoLink: string; img: string;
+};
+type Place = {
+  primaryNe: string; primaryEn: string; primaryDescNe: string; primaryDescEn: string;
+  primaryImg: string; details: PlaceDetail[];
+};
+const EMPTY_PLACE: Place = { primaryNe: "", primaryEn: "", primaryDescNe: "", primaryDescEn: "", primaryImg: "", details: [] };
 
 function MuniStat({
   label, value, accent = "var(--ink)",
@@ -35,9 +41,26 @@ function MuniStat({
 export default function LamjungMap() {
   const { lang, t } = useLang();
   const [active, setActive] = useState<PalikaId>("besisahar");
+  const [PROJECTS, setProjects] = useState<Project[]>([]);
+  const [places, setPlaces] = useState<Record<string, Place>>({});
+
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((res) => res.json())
+      .then((data) => setProjects(Array.isArray(data) ? data : []))
+      .catch(() => setProjects([]));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/places")
+      .then((res) => res.json())
+      .then((data) => setPlaces(data && typeof data === "object" ? data : {}))
+      .catch(() => setPlaces({}));
+  }, []);
+
   const muni = MUNICIPALITIES.find((m) => m.id === active)!;
   const muniProjects = PROJECTS.filter((p) => p.palika === active);
-  const place = PLACES[active];
+  const place = places[active] ?? EMPTY_PLACE;
   const projectCount = (id: PalikaId) => PROJECTS.filter((p) => p.palika === id).length;
   const shortName = (m: typeof MUNICIPALITIES[number]) =>
     lang === "en"
@@ -83,7 +106,7 @@ export default function LamjungMap() {
                 </div>
               </div>
               <div>
-                <div style={{ fontSize: 28, fontWeight: 500 }} className="mono">१,८६,९६९</div>
+                <div style={{ fontSize: 28, fontWeight: 500 }} className="mono">१,५५,८५२</div>
                 <div
                   className="mono"
                   style={{
@@ -200,86 +223,6 @@ export default function LamjungMap() {
                 <MuniStat label={t(STR.mapProjects)} value={muniProjects.length} accent="var(--accent)" />
               </div>
 
-              <div style={{ padding: 14, background: "var(--bg-soft)", borderRadius: 8, marginBottom: 16 }}>
-                <div
-                  className="mono"
-                  style={{
-                    fontSize: 12, color: "var(--ink-muted)",
-                    letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6,
-                  }}
-                >
-                  {lang === "en" ? "Key issues" : "मुख्य विषय"}
-                </div>
-                <div style={{ fontSize: 14 }}>{lt(muni, "issue", lang)}</div>
-              </div>
-
-              <div
-                className="mono"
-                style={{
-                  fontSize: 12, color: "var(--ink-muted)",
-                  letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 10,
-                }}
-              >
-                {lang === "en"
-                  ? `Projects in ${muni.en.split(" ")[0]}`
-                  : `${muni.ne.split(" ")[0]}का परियोजना`}{" "}
-                · {muniProjects.length}
-              </div>
-              {muniProjects.length === 0 ? (
-                <div
-                  style={{
-                    padding: 20, textAlign: "center", color: "var(--ink-muted)",
-                    fontSize: 13, border: "1px dashed var(--line)", borderRadius: 8,
-                  }}
-                >
-                  {lang === "en"
-                    ? "No tracked projects in this palika yet."
-                    : "यस पालिकामा अहिले ट्र्याक गरिएका परियोजना छैनन्।"}
-                </div>
-              ) : (
-                <div style={{ display: "grid", gap: 8 }}>
-                  {muniProjects.slice(0, 4).map((p) => {
-                    const cat = CATEGORIES.find((c) => c.id === p.cat)!;
-                    const st = STATUS[p.status];
-                    return (
-                      <div
-                        key={p.id}
-                        style={{
-                          display: "grid",
-                          gridTemplateColumns: "auto 1fr auto",
-                          gap: 12, alignItems: "center",
-                          padding: "10px 12px", background: "var(--surface-2)",
-                          borderRadius: 6, fontSize: 13,
-                        }}
-                      >
-                        <span
-                          style={{
-                            width: 24, height: 24, borderRadius: 4,
-                            background: `${cat.hue}18`, color: cat.hue,
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                          }}
-                        >
-                          <Icon name={cat.icon} size={12} />
-                        </span>
-                        <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                          {lt(p, "title", lang)}
-                        </span>
-                        <span
-                          className="mono"
-                          style={{
-                            fontSize: 12, color: st.color,
-                            padding: "3px 8px", borderRadius: 3,
-                            background: `${st.color}18`,
-                            letterSpacing: "0.06em", textTransform: "uppercase",
-                          }}
-                        >
-                          {lang === "en" ? st.en : st.ne}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
             </div>
 
             {/* Tourist Places with Details & Links */}

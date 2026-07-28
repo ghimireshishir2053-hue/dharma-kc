@@ -1,8 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { STR, useLang, lt } from "@/lib/i18n";
-import { PROJECTS } from "@/content/projects";
 import { CATEGORIES, STATUS } from "@/content/categories";
 import { MUNICIPALITIES } from "@/content/municipalities";
 import type { Project, StatusId } from "@/lib/types";
@@ -197,10 +196,20 @@ function ProjectCard({ p }: { p: Project }) {
 
 export default function ProjectTracker() {
   const { lang, t } = useLang();
+  const [PROJECTS, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const [cat, setCat] = useState<string>("all");
   const [status, setStatus] = useState<string>("all");
   const [palika, setPalika] = useState<string>("all");
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((res) => res.json())
+      .then((data) => setProjects(Array.isArray(data) ? data : []))
+      .catch(() => setProjects([]))
+      .finally(() => setLoading(false));
+  }, []);
 
   const filtered = useMemo(() => {
     return PROJECTS.filter((p) => {
@@ -217,19 +226,19 @@ export default function ProjectTracker() {
       }
       return true;
     });
-  }, [cat, status, palika, query, lang]);
+  }, [PROJECTS, cat, status, palika, query, lang]);
 
   const countsByCat = useMemo(() => {
     const m: Record<string, number> = {};
     PROJECTS.forEach((p) => { m[p.cat] = (m[p.cat] || 0) + 1; });
     return m;
-  }, []);
+  }, [PROJECTS]);
 
   const byStatus = useMemo(() => {
     const m: Record<string, number> = {};
     PROJECTS.forEach((p) => { m[p.status] = (m[p.status] || 0) + 1; });
     return m;
-  }, []);
+  }, [PROJECTS]);
 
   return (
     <section id="sectors" className="section" style={{ background: "var(--bg)" }}>
@@ -401,7 +410,22 @@ export default function ProjectTracker() {
           </span>
         </div>
 
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div style={{ padding: 80, textAlign: "center", color: "var(--ink-muted)" }}>
+            {lang === "en" ? "Loading…" : "लोड हुँदैछ…"}
+          </div>
+        ) : PROJECTS.length === 0 ? (
+          <div
+            style={{
+              padding: 80, textAlign: "center", border: "1px dashed var(--line)",
+              borderRadius: 12, color: "var(--ink-muted)",
+            }}
+          >
+            {lang === "en"
+              ? "No projects tracked yet — check back soon."
+              : "अहिलेसम्म कुनै परियोजना ट्र्याक गरिएको छैन — चाँडै अद्यावधिक हुनेछ।"}
+          </div>
+        ) : filtered.length === 0 ? (
           <div
             style={{
               padding: 80, textAlign: "center", border: "1px dashed var(--line)",
